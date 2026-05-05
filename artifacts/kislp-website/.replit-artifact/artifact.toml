@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "KISLP Website"
+version = "1.0.0"
+id = "artifacts/kislp-website"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21976
+
+[services.development]
+run = "pnpm --filter @workspace/kislp-website run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/kislp-website", "run", "build" ]
+publicDir = "artifacts/kislp-website/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21976"
+BASE_PATH = "/"
