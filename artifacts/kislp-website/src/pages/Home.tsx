@@ -8,9 +8,8 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-primary">
-        <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary to-background"></div>
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-primary" style={{ backgroundImage: "url('/gallery/peace-conference-nairobi.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/85 via-primary/80 to-primary/95"></div>
         
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div

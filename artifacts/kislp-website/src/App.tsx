@@ -13,6 +13,7 @@ import Programs from "@/pages/Programs";
 import Impact from "@/pages/Impact";
 import Contact from "@/pages/Contact";
 import Donate from "@/pages/Donate";
+import Gallery from "@/pages/Gallery";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ function Router() {
           <Route path="/impact" component={Impact} />
           <Route path="/contact" component={Contact} />
           <Route path="/donate" component={Donate} />
+          <Route path="/gallery" component={Gallery} />
           <Route component={NotFound} />
         </Switch>
       </main>
