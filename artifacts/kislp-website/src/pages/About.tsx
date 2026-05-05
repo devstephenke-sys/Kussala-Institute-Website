@@ -217,33 +217,6 @@ export default function About() {
           </motion.div>
         </div>
       </section>
-
-      {/* Leadership */}
-      <section className="py-24 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Leadership</p>
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary mb-4">Presented By</h2>
-            <div className="w-20 h-1 bg-secondary mx-auto" />
-          </div>
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="max-w-2xl mx-auto bg-card border-2 border-secondary/30 rounded-2xl p-16 text-center"
-          >
-            <div className="w-24 h-24 rounded-full bg-primary/10 border-2 border-secondary/40 flex items-center justify-center mx-auto mb-6">
-              <span className="text-primary font-serif font-bold text-3xl">BK</span>
-            </div>
-            <h3 className="text-2xl font-serif font-bold text-primary mb-2">Bishop Kussala Barani Hiiboro Edwardo</h3>
-            <p className="text-secondary font-semibold text-sm uppercase tracking-widest mb-4">Founder & Presenter</p>
-            <p className="text-muted-foreground leading-relaxed">
-              Bishop Kussala Barani Hiiboro Edwardo presents the KISLP vision for transforming leadership in fragile and post-conflict societies across Africa through ethical governance and strategic peacebuilding.
-            </p>
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 }
