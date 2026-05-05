@@ -104,23 +104,80 @@ export default function About() {
       <section className="py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <motion.div {...fadeUp} className="bg-primary text-primary-foreground rounded-2xl p-10 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-secondary/10 rounded-full blur-3xl" />
-              <Target className="text-secondary mb-6" size={40} />
-              <p className="text-secondary uppercase tracking-widest text-xs font-semibold mb-2">Mission</p>
-              <h3 className="text-2xl font-serif font-bold mb-4">Our Mission</h3>
-              <p className="text-primary-foreground/85 leading-relaxed text-lg">
-                To form visionary leaders, conduct independent research, provide strategic conflict solutions, and equip institutions with policy-relevant knowledge.
-              </p>
+            {/* Mission flip card */}
+            <motion.div {...fadeUp} className="group" style={{ perspective: "1000px" }}>
+              <div
+                className="relative w-full rounded-2xl transition-transform duration-700 ease-in-out"
+                style={{
+                  transformStyle: "preserve-3d",
+                  transform: "rotateY(0deg)",
+                  minHeight: "280px",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.transform = "rotateY(180deg)")}
+                onMouseLeave={e => (e.currentTarget.style.transform = "rotateY(0deg)")}
+              >
+                {/* Front */}
+                <div
+                  className="absolute inset-0 rounded-2xl bg-primary text-primary-foreground flex flex-col items-center justify-center p-10 text-center"
+                  style={{ backfaceVisibility: "hidden" }}
+                >
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
+                  <Target className="text-secondary mb-5" size={52} />
+                  <p className="text-secondary uppercase tracking-widest text-xs font-semibold mb-2">Mission</p>
+                  <h3 className="text-3xl font-serif font-bold">Our Mission</h3>
+                  <p className="text-primary-foreground/50 text-sm mt-4 italic">Hover to reveal</p>
+                </div>
+                {/* Back */}
+                <div
+                  className="absolute inset-0 rounded-2xl bg-primary text-primary-foreground flex flex-col items-center justify-center p-10 text-center"
+                  style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+                >
+                  <div className="absolute bottom-0 left-0 w-40 h-40 bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
+                  <Target className="text-secondary mb-4" size={32} />
+                  <p className="text-secondary uppercase tracking-widest text-xs font-semibold mb-3">Mission</p>
+                  <p className="text-primary-foreground/90 leading-relaxed text-lg">
+                    To form visionary leaders, conduct independent research, provide strategic conflict solutions, and equip institutions with policy-relevant knowledge.
+                  </p>
+                </div>
+              </div>
             </motion.div>
-            <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.1 }} className="bg-secondary rounded-2xl p-10 relative overflow-hidden">
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
-              <Eye className="text-secondary-foreground mb-6" size={40} />
-              <p className="text-secondary-foreground/70 uppercase tracking-widest text-xs font-semibold mb-2">Vision</p>
-              <h3 className="text-2xl font-serif font-bold text-secondary-foreground mb-4">Our Vision</h3>
-              <p className="text-secondary-foreground/90 leading-relaxed text-lg">
-                To be a leading African institute shaping ethical leaders and advancing strategic thinking for just, stable, and flourishing societies.
-              </p>
+
+            {/* Vision flip card */}
+            <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.1 }} className="group" style={{ perspective: "1000px" }}>
+              <div
+                className="relative w-full rounded-2xl transition-transform duration-700 ease-in-out"
+                style={{
+                  transformStyle: "preserve-3d",
+                  transform: "rotateY(0deg)",
+                  minHeight: "280px",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.transform = "rotateY(180deg)")}
+                onMouseLeave={e => (e.currentTarget.style.transform = "rotateY(0deg)")}
+              >
+                {/* Front */}
+                <div
+                  className="absolute inset-0 rounded-2xl bg-secondary flex flex-col items-center justify-center p-10 text-center"
+                  style={{ backfaceVisibility: "hidden" }}
+                >
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+                  <Eye className="text-secondary-foreground mb-5" size={52} />
+                  <p className="text-secondary-foreground/70 uppercase tracking-widest text-xs font-semibold mb-2">Vision</p>
+                  <h3 className="text-3xl font-serif font-bold text-secondary-foreground">Our Vision</h3>
+                  <p className="text-secondary-foreground/50 text-sm mt-4 italic">Hover to reveal</p>
+                </div>
+                {/* Back */}
+                <div
+                  className="absolute inset-0 rounded-2xl bg-secondary flex flex-col items-center justify-center p-10 text-center"
+                  style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+                >
+                  <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+                  <Eye className="text-secondary-foreground mb-4" size={32} />
+                  <p className="text-secondary-foreground/70 uppercase tracking-widest text-xs font-semibold mb-3">Vision</p>
+                  <p className="text-secondary-foreground/90 leading-relaxed text-lg">
+                    To be a leading African institute shaping ethical leaders and advancing strategic thinking for just, stable, and flourishing societies.
+                  </p>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
