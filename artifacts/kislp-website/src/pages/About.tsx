@@ -85,10 +85,10 @@ export default function About() {
             <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.15 }} className="space-y-5">
               <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-1">Articles of Operation</p>
               {[
-                { label: "Article I — Status", text: "KISLP is a non-profit, non-partisan research and policy institute with full legal personality." },
-                { label: "Article II — Vision", text: "To be a leading African institute shaping ethical leaders and advancing strategic thinking for just, stable, and flourishing societies." },
-                { label: "Article III — Mission", text: "To form visionary leaders, conduct independent research, provide strategic conflict solutions, and equip institutions with policy-relevant knowledge." },
-                { label: "Article IV — Core Values", text: "Integrity, Strategic Excellence, Peace & Reconciliation, Human Dignity, Accountability, Collaboration, and Service Leadership." },
+                { label: "Status", text: "KISLP is a non-profit, non-partisan research and policy institute with full legal personality." },
+                { label: "Vision", text: "To be a leading African institute shaping ethical leaders and advancing strategic thinking for just, stable, and flourishing societies." },
+                { label: "Mission", text: "To form visionary leaders, conduct independent research, provide strategic conflict solutions, and equip institutions with policy-relevant knowledge." },
+                { label: "Core Values", text: "Integrity, Strategic Excellence, Peace & Reconciliation, Human Dignity, Accountability, Collaboration, and Service Leadership." },
               ].map((art, i) => (
                 <div key={i} className="bg-muted/40 border border-border rounded-xl p-6">
                   <div className="text-sm font-bold text-secondary uppercase tracking-wider mb-2">{art.label}</div>
@@ -107,7 +107,7 @@ export default function About() {
             <motion.div {...fadeUp} className="bg-primary text-primary-foreground rounded-2xl p-10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-40 h-40 bg-secondary/10 rounded-full blur-3xl" />
               <Target className="text-secondary mb-6" size={40} />
-              <p className="text-secondary uppercase tracking-widest text-xs font-semibold mb-2">Article III</p>
+              <p className="text-secondary uppercase tracking-widest text-xs font-semibold mb-2">Mission</p>
               <h3 className="text-2xl font-serif font-bold mb-4">Our Mission</h3>
               <p className="text-primary-foreground/85 leading-relaxed text-lg">
                 To form visionary leaders, conduct independent research, provide strategic conflict solutions, and equip institutions with policy-relevant knowledge.
@@ -116,7 +116,7 @@ export default function About() {
             <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.1 }} className="bg-secondary rounded-2xl p-10 relative overflow-hidden">
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
               <Eye className="text-secondary-foreground mb-6" size={40} />
-              <p className="text-secondary-foreground/70 uppercase tracking-widest text-xs font-semibold mb-2">Article II</p>
+              <p className="text-secondary-foreground/70 uppercase tracking-widest text-xs font-semibold mb-2">Vision</p>
               <h3 className="text-2xl font-serif font-bold text-secondary-foreground mb-4">Our Vision</h3>
               <p className="text-secondary-foreground/90 leading-relaxed text-lg">
                 To be a leading African institute shaping ethical leaders and advancing strategic thinking for just, stable, and flourishing societies.
@@ -130,7 +130,7 @@ export default function About() {
       <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Article IV</p>
+            <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Core Values</p>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary mb-4">Core Values</h2>
             <div className="w-20 h-1 bg-secondary mx-auto" />
           </div>
