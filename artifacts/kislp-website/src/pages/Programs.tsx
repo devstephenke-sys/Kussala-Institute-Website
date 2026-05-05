@@ -1,94 +1,199 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Users, Shield, BookOpen, MessageSquare, FileText, Star, ArrowRight, CheckCircle } from "lucide-react";
+import { Users, Star, Globe, BookOpen, ArrowRight, CheckCircle, TrendingUp } from "lucide-react";
 
-const programs = [
+const roadmap = [
   {
-    icon: Users,
-    title: "Strategic Leadership Training",
-    tag: "Core Program",
-    duration: "6 Months",
-    description: "An immersive, rigorous curriculum designed for emerging and established leaders. Participants gain advanced skills in strategic thinking, organizational management, ethical decision-making, and cross-cultural communication.",
-    features: ["Executive coaching sessions", "Case studies from global conflicts", "Simulation-based learning", "International guest lecturers", "Alumni mentorship network"],
-    color: "primary",
+    year: "2026",
+    phase: "Institutional Establishment",
+    focus: "Legal registration, Board formation, and inaugural symposium.",
+    outcome: "A functional and credible institutional structure.",
+    color: "bg-primary",
+    items: ["Legal registration completed", "Board of Trustees formed", "Inaugural symposium held", "Foundational partnerships established"],
   },
   {
-    icon: Shield,
-    title: "Peacebuilding Workshops",
-    tag: "Intensive Training",
-    duration: "2-4 Weeks",
-    description: "Hands-on workshops that equip participants with practical mediation, dialogue facilitation, and reconciliation skills. Delivered in partnership with communities experiencing active or post-conflict situations.",
-    features: ["Conflict analysis frameworks", "Community dialogue facilitation", "Trauma-informed approaches", "Grassroots implementation tools", "Field visits and community engagement"],
-    color: "secondary",
+    year: "2027",
+    phase: "Program Expansion",
+    focus: "Launching the Ethical Leadership Academy (100+ leaders) and Peace Ambassador Youth Program.",
+    outcome: "Visible programmatic impact and county-level dialogue.",
+    color: "bg-secondary",
+    items: ["Ethical Leadership Academy launched", "100+ leaders enrolled", "Peace Ambassador Youth Program active", "County-level dialogues underway"],
+  },
+  {
+    year: "2028",
+    phase: "Regional Consolidation",
+    focus: "Scaling to 300+ participants, hosting a National Conference, and launching the 'Women in Leadership' initiative.",
+    outcome: "Regional recognition and policy relevance.",
+    color: "bg-primary",
+    items: ["300+ participants reached", "National Conference hosted", "Women in Leadership initiative launched", "Policy advisory publications released"],
+  },
+  {
+    year: "2029",
+    phase: "Policy Influence & Scale",
+    focus: "Launching the African Leadership & Peace Index and securing multi-year funding.",
+    outcome: "Established status as a premier regional think tank.",
+    color: "bg-secondary",
+    items: ["African Leadership & Peace Index launched", "Multi-year donor funding secured", "Premier regional think tank status", "Pan-African strategic partnerships"],
+  },
+];
+
+const focusAreas = [
+  {
+    icon: Users,
+    title: "Youth Leadership & Civic Engagement",
+    tag: "Youth Track",
+    desc: "Empowering the next generation through structured leadership training, mentorship, and platforms for meaningful civic participation. The Peace Ambassador Youth Program targets young leaders for county-level dialogue and national advocacy.",
+    features: ["Structured leadership training", "Mentorship programs", "Civic participation platforms", "Peace Ambassador Youth Program", "National Conference representation"],
+    color: "primary",
   },
   {
     icon: Star,
-    title: "G7 Youth Leadership Initiative",
-    tag: "Youth Track",
-    duration: "12 Months",
-    description: "Named after the G7 mandate embedded in our founding charter, this initiative identifies and develops exceptional young leaders (ages 18-35) from underrepresented regions, providing them a global stage and comprehensive support.",
-    features: ["International exchange programs", "Mentorship by senior diplomats", "Seed grants for peace projects", "UN and AU accreditation", "Global leadership summits"],
-    color: "primary",
-  },
-  {
-    icon: MessageSquare,
-    title: "Community Conflict Resolution",
-    tag: "Community Program",
-    duration: "Ongoing",
-    description: "At the grassroots level, this program trains local leaders, chiefs, women's groups, and faith leaders in principled negotiation and community dialogue. Real change starts at home.",
-    features: ["Localized training modules", "Women and youth focus", "Traditional leaders integration", "Dispute resolution clinics", "Community peace committees"],
+    title: "Inclusive Capacity Building",
+    tag: "Inclusion Track",
+    desc: "Strengthening the agency of women and persons with disabilities (PWDs) through tailored skills development and institutional support. The 'Women in Leadership' initiative launches in 2028.",
+    features: ["Women in Leadership initiative (2028)", "PWD-focused skills development", "Tailored institutional support", "Gender-responsive programming", "Inclusive policy advisory"],
     color: "secondary",
   },
   {
-    icon: FileText,
-    title: "Policy Development Forums",
-    tag: "Policy Track",
-    duration: "Year-round",
-    description: "Convening policymakers, academics, and civil society actors to co-create evidence-based policy frameworks. KISLP bridges the gap between research and actionable governance reform.",
-    features: ["Policy briefs and white papers", "Government advisory services", "Legislative reform workshops", "Regional policy summits", "International partnerships"],
+    icon: Globe,
+    title: "Humanitarian Response & Community Resilience",
+    tag: "Resilience Track",
+    desc: "Providing life-saving assistance and sustainable support systems for vulnerable populations in crisis-affected areas. Grounded in ethical leadership for stable governance.",
+    features: ["Crisis response frameworks", "Community resilience building", "Ethical public financial management", "Revitalized Peace Agreement support", "Local governance strengthening"],
     color: "primary",
   },
   {
     icon: BookOpen,
-    title: "Research & Publications",
-    tag: "Knowledge Hub",
-    duration: "Ongoing",
-    description: "KISLP produces rigorous academic and practitioner research on leadership, peacebuilding, and governance, contributing to the global body of knowledge and informing practice worldwide.",
-    features: ["Peer-reviewed journal", "Annual state of peace report", "Case study library", "Webinars and podcasts", "Open access resources"],
+    title: "TVET & Sustainable Livelihoods",
+    tag: "Economic Track",
+    desc: "Promoting economic independence through Competency-Based Education and Training (CBET) and market-aligned vocational schooling to address unemployment and radicalization.",
+    features: ["CBET curriculum development", "Market-aligned vocational training", "Economic independence programs", "Youth employment pathways", "Private sector linkages"],
     color: "secondary",
   },
 ];
+
+const flagship = {
+  title: "Ethical Leadership Academy",
+  subtitle: "Flagship Program — Launching 2027",
+  desc: "The Ethical Leadership Academy is KISLP's premier training program, targeting 100+ leaders in its inaugural cohort. Designed for emerging and established leaders in fragile and post-conflict contexts, the Academy combines strategic thinking, ethical frameworks, and peacebuilding tools.",
+  features: [
+    "Strategic thinking and decision-making",
+    "Ethical governance frameworks",
+    "Conflict analysis and mediation",
+    "Policy development and advocacy",
+    "Cross-regional leadership exchange",
+    "African Leadership & Peace Index (2029)",
+  ],
+};
 
 export default function Programs() {
   return (
     <div className="w-full">
       {/* Hero */}
-      <section className="relative py-28 bg-primary overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 70% 50%, hsl(43 96% 50%) 0%, transparent 60%)" }} />
+      <section
+        className="relative py-32 flex items-center justify-center overflow-hidden"
+        style={{ backgroundImage: "url('/gallery/youth-leadership-workshop.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%" }}
+      >
+        <div className="absolute inset-0 bg-primary/82" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}
             className="text-secondary uppercase tracking-widest text-sm font-semibold mb-4"
           >
-            What We Offer
+            Section II
           </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl md:text-6xl font-serif font-bold text-white mb-6"
           >
-            Our Programs
+            Strategic Plan 2026–2029
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
             className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto font-light"
           >
-            Comprehensive, evidence-based programs designed to develop transformative leaders and build lasting peace at every level of society.
+            Roadmap to Impact — Four phases from Institutional Establishment to Policy Influence & Scale.
           </motion.p>
         </div>
       </section>
 
-      {/* Programs Grid */}
+      {/* Roadmap */}
       <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Roadmap to Impact</p>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Four-Phase Strategy</h2>
+            <div className="w-20 h-1 bg-secondary mx-auto" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {roadmap.map((phase, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group"
+              >
+                <div className={`${phase.color} p-5 text-center`}>
+                  <div className="text-3xl font-serif font-bold text-white">{phase.year}</div>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-serif font-bold text-lg text-foreground mb-3">{phase.phase}</h3>
+                  <p className="text-muted-foreground text-sm mb-3 leading-relaxed"><strong className="text-foreground">Focus:</strong> {phase.focus}</p>
+                  <p className="text-secondary text-sm font-semibold mb-4 italic">{phase.outcome}</p>
+                  <ul className="space-y-2">
+                    {phase.items.map((item, j) => (
+                      <li key={j} className="flex items-start gap-2 text-xs text-muted-foreground">
+                        <CheckCircle size={12} className="text-secondary shrink-0 mt-0.5" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Flagship Program */}
+      <section className="py-20 bg-muted/30">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-primary rounded-2xl p-10 md:p-14 relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary/5 rounded-full blur-3xl" />
+            <div className="relative z-10">
+              <p className="text-secondary uppercase tracking-widest text-xs font-semibold mb-3">Flagship Program</p>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-2">{flagship.title}</h2>
+              <p className="text-secondary text-sm font-semibold mb-6">{flagship.subtitle}</p>
+              <p className="text-primary-foreground/80 leading-relaxed mb-8 text-lg max-w-3xl">{flagship.desc}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {flagship.features.map((feat, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm text-primary-foreground/80">
+                    <CheckCircle size={14} className="text-secondary shrink-0" />
+                    {feat}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Focus Areas */}
+      <section className="py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Core Programming</p>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Our Focus Areas</h2>
+            <div className="w-20 h-1 bg-secondary mx-auto" />
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {programs.map((prog, i) => (
+            {focusAreas.map((prog, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 24 }}
@@ -101,13 +206,10 @@ export default function Programs() {
                   <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${prog.color === "primary" ? "bg-primary/10" : "bg-secondary/15"}`}>
                     <prog.icon className={prog.color === "primary" ? "text-primary" : "text-secondary"} size={28} />
                   </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider bg-muted text-muted-foreground px-3 py-1 rounded-full">{prog.tag}</span>
-                    <span className="text-xs text-muted-foreground">{prog.duration}</span>
-                  </div>
+                  <span className="text-xs font-semibold uppercase tracking-wider bg-muted text-muted-foreground px-3 py-1 rounded-full">{prog.tag}</span>
                 </div>
                 <h3 className="text-xl font-serif font-bold text-foreground mb-3">{prog.title}</h3>
-                <p className="text-muted-foreground leading-relaxed mb-6 text-sm">{prog.description}</p>
+                <p className="text-muted-foreground leading-relaxed mb-6 text-sm">{prog.desc}</p>
                 <ul className="space-y-2">
                   {prog.features.map((feat, j) => (
                     <li key={j} className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -125,26 +227,23 @@ export default function Programs() {
       {/* CTA */}
       <section className="py-20 bg-secondary">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl md:text-4xl font-serif font-bold text-secondary-foreground mb-4"
-          >
-            Ready to Join a Program?
-          </motion.h2>
-          <p className="text-secondary-foreground/80 mb-8 text-lg">
-            Contact us to learn more about eligibility, application processes, and upcoming cohorts.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-md font-bold text-lg transition-all hover:bg-primary/90">
-              Get in Touch <ArrowRight size={20} />
-            </Link>
-            <Link href="/donate" className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-primary/30 text-primary px-8 py-4 rounded-md font-bold text-lg transition-all hover:bg-primary/10">
-              Support Our Programs
-            </Link>
-          </div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <TrendingUp className="mx-auto text-secondary-foreground mb-4" size={36} />
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-secondary-foreground mb-4">
+              Support the 2026–2029 Flagship Initiative
+            </h2>
+            <p className="text-secondary-foreground/80 mb-8 text-lg">
+              The SLPI-FS project requires a total investment of $3.1M. Partner with us to fund leadership programs, peacebuilding activities, and independent research.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/donate" className="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-md font-bold text-lg transition-all hover:bg-primary/90">
+                Financial Investment <ArrowRight size={20} />
+              </Link>
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-primary/30 text-primary px-8 py-4 rounded-md font-bold text-lg transition-all hover:bg-primary/10">
+                Technical Partnership
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
+import { MapPin, Mail, Send, CheckCircle, Handshake, BookOpen, DollarSign } from "lucide-react";
 import { useState } from "react";
 
 const formSchema = z.object({
@@ -21,10 +21,26 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const contactInfo = [
-  { icon: MapPin, label: "Address", value: "123 Peace Avenue, Diplomatic Quarter\nNairobi, Kenya 00100" },
-  { icon: Phone, label: "Phone", value: "+254 700 123 456" },
-  { icon: Mail, label: "Email", value: "contact@kislp.org" },
-  { icon: Clock, label: "Office Hours", value: "Monday – Friday: 8:00 AM – 5:00 PM EAT" },
+  { icon: MapPin, label: "Physical Address", value: "South Sudan\nPlot 4979, Block 246, Muyenga" },
+  { icon: Mail, label: "Official Email", value: "bishophiiboro@yahoo.com" },
+];
+
+const partnershipTypes = [
+  {
+    icon: BookOpen,
+    title: "Technical Partnership",
+    desc: "Sharing expertise in governance and conflict analysis with KISLP's research and program teams.",
+  },
+  {
+    icon: DollarSign,
+    title: "Financial Investment",
+    desc: "Supporting our 2026–2029 Flagship Projects with targeted contributions from the $3.1M SLPI-FS budget.",
+  },
+  {
+    icon: Handshake,
+    title: "Strategic Alliance",
+    desc: "Co-hosting regional peace dialogues and policy forums across South Sudan, DRC, and East Africa.",
+  },
 ];
 
 export default function Contact() {
@@ -42,13 +58,16 @@ export default function Contact() {
   return (
     <div className="w-full">
       {/* Hero */}
-      <section className="relative py-28 bg-primary overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 60% 40%, hsl(43 96% 50%) 0%, transparent 55%)" }} />
+      <section
+        className="relative py-32 flex items-center justify-center overflow-hidden"
+        style={{ backgroundImage: "url('/gallery/reconciliation-village-rwanda.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
+      >
+        <div className="absolute inset-0 bg-primary/82" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}
             className="text-secondary uppercase tracking-widest text-sm font-semibold mb-4"
           >
-            Reach Out
+            Call to Partnership
           </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl md:text-6xl font-serif font-bold text-white mb-6"
@@ -58,13 +77,57 @@ export default function Contact() {
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
             className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto font-light"
           >
-            Whether you want to learn about our programs, explore partnerships, or simply connect — we'd love to hear from you.
+            We welcome formal inquiries from organizations interested in becoming part of the KISLP ecosystem.
           </motion.p>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="py-24 bg-background">
+      {/* Partnership Types */}
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">How to Engage</p>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Partnership Opportunities</h2>
+            <div className="w-20 h-1 bg-secondary mx-auto mb-6" />
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Whether through expertise, investment, or strategic alignment — there is a place for your organization in the KISLP mission.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {partnershipTypes.map((pt, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-card border border-border rounded-2xl p-8 hover:border-secondary hover:shadow-md transition-all group"
+              >
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-secondary/10 transition-colors">
+                  <pt.icon className="text-primary group-hover:text-secondary transition-colors" size={26} />
+                </div>
+                <h3 className="font-serif font-bold text-lg text-foreground mb-3">{pt.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{pt.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+          <motion.blockquote
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto text-center bg-primary/5 border border-primary/10 rounded-2xl p-8"
+          >
+            <p className="text-primary font-serif text-lg italic mb-3">
+              "Together, we can transform the leadership landscape of the African continent and build a future defined by stability, integrity, and shared prosperity."
+            </p>
+            <p className="text-secondary text-sm font-semibold uppercase tracking-wider">— KISLP Founding Charter</p>
+          </motion.blockquote>
+        </div>
+      </section>
+
+      {/* Contact Form + Info */}
+      <section className="py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
             {/* Contact Info */}
@@ -78,7 +141,7 @@ export default function Contact() {
                 <h2 className="text-2xl font-serif font-bold text-primary mb-2">Get in Touch</h2>
                 <div className="w-12 h-1 bg-secondary mb-6" />
                 <p className="text-muted-foreground leading-relaxed mb-8">
-                  Our team is here to assist you. Reach out via any of the channels below, and we will respond within two business days.
+                  Our team is here to assist you. Reach out via any of the channels below and we will respond within two business days.
                 </p>
               </motion.div>
 
@@ -105,13 +168,13 @@ export default function Contact() {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
                 className="bg-primary rounded-2xl p-8 text-primary-foreground relative overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full blur-2xl" />
-                <h3 className="font-serif font-bold text-lg mb-3">Partner with KISLP</h3>
+                <h3 className="font-serif font-bold text-lg mb-3">Grassroots Mobilization</h3>
                 <p className="text-primary-foreground/80 text-sm leading-relaxed">
-                  Are you an organization, government body, or foundation interested in collaboration? We welcome strategic partnerships that advance our shared mission.
+                  We invite international donors, regional governments, academic institutions, and like-minded civil society organizations to join us in transforming the leadership landscape of the African continent.
                 </p>
               </motion.div>
             </div>
@@ -129,14 +192,14 @@ export default function Contact() {
                   <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6">
                     <CheckCircle className="text-primary" size={40} />
                   </div>
-                  <h3 className="text-2xl font-serif font-bold text-primary mb-3">Message Sent</h3>
+                  <h3 className="text-2xl font-serif font-bold text-primary mb-3">Inquiry Received</h3>
                   <p className="text-muted-foreground max-w-sm">
-                    Thank you for reaching out. A member of our team will get back to you within two business days.
+                    Thank you for reaching out to KISLP. A member of our team will be in touch within two business days.
                   </p>
                 </div>
               ) : (
                 <>
-                  <h2 className="text-2xl font-serif font-bold text-primary mb-2">Send a Message</h2>
+                  <h2 className="text-2xl font-serif font-bold text-primary mb-2">Send a Formal Inquiry</h2>
                   <div className="w-12 h-1 bg-secondary mb-8" />
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="contact-form">
@@ -145,7 +208,7 @@ export default function Contact() {
                           <FormItem>
                             <FormLabel>Full Name</FormLabel>
                             <FormControl>
-                              <Input placeholder="Dr. Jane Smith" data-testid="input-name" {...field} />
+                              <Input placeholder="Your full name" data-testid="input-name" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -154,7 +217,7 @@ export default function Contact() {
                           <FormItem>
                             <FormLabel>Email Address</FormLabel>
                             <FormControl>
-                              <Input type="email" placeholder="jane@example.org" data-testid="input-email" {...field} />
+                              <Input type="email" placeholder="your@organization.org" data-testid="input-email" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -171,17 +234,18 @@ export default function Contact() {
                       )} />
                       <FormField control={form.control} name="subject" render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Subject</FormLabel>
+                          <FormLabel>Partnership Type</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger data-testid="select-subject">
-                                <SelectValue placeholder="Select a subject" />
+                                <SelectValue placeholder="Select a partnership type" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
+                              <SelectItem value="technical">Technical Partnership</SelectItem>
+                              <SelectItem value="financial">Financial Investment</SelectItem>
+                              <SelectItem value="strategic">Strategic Alliance</SelectItem>
                               <SelectItem value="programs">Program Inquiry</SelectItem>
-                              <SelectItem value="partnership">Partnership Opportunity</SelectItem>
-                              <SelectItem value="donation">Donation & Support</SelectItem>
                               <SelectItem value="media">Media & Press</SelectItem>
                               <SelectItem value="research">Research Collaboration</SelectItem>
                               <SelectItem value="other">Other</SelectItem>
@@ -195,7 +259,7 @@ export default function Contact() {
                           <FormLabel>Message</FormLabel>
                           <FormControl>
                             <Textarea
-                              placeholder="Tell us how we can help or how you'd like to collaborate..."
+                              placeholder="Describe how your organization wishes to engage with KISLP..."
                               className="min-h-[140px] resize-none"
                               data-testid="textarea-message"
                               {...field}
@@ -206,7 +270,7 @@ export default function Contact() {
                       )} />
                       <Button type="submit" className="w-full bg-primary text-white hover:bg-primary/90 py-6 text-base font-semibold" data-testid="button-submit">
                         <Send size={18} className="mr-2" />
-                        Send Message
+                        Submit Inquiry
                       </Button>
                     </form>
                   </Form>
