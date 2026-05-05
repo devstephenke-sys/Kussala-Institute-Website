@@ -120,7 +120,6 @@ export default function Programs() {
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}
             className="text-secondary uppercase tracking-widest text-sm font-semibold mb-4"
           >
-            Section II
           </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl md:text-6xl font-serif font-bold text-white mb-6"
