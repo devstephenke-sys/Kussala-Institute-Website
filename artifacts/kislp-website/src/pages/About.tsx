@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Target, Eye, Heart, BookOpen, Scale, Globe } from "lucide-react";
+import { Target, Eye, Heart, BookOpen, Scale, Globe, Download } from "lucide-react";
 
 const values = [
   { icon: Heart, title: "Compassion", desc: "We approach every conflict with empathy, recognizing the humanity in all parties involved." },
@@ -138,6 +138,38 @@ export default function About() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Download Proposal */}
+      <section className="py-16 bg-background border-y border-border">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col sm:flex-row items-center gap-8 bg-primary rounded-2xl p-10 text-center sm:text-left relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-48 h-48 bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="w-16 h-16 rounded-xl bg-secondary/20 flex items-center justify-center shrink-0">
+              <Download className="text-secondary" size={30} />
+            </div>
+            <div className="flex-1">
+              <p className="text-secondary uppercase tracking-widest text-xs font-semibold mb-1">Official Proposal</p>
+              <h3 className="text-xl font-serif font-bold text-white mb-1">Download Our Full Proposal Presentation</h3>
+              <p className="text-primary-foreground/70 text-sm">Get the complete KISLP project proposal including vision, programs, budget, and regional impact plans.</p>
+            </div>
+            <a
+              href="/KISLP-Proposal-Presentation.pptx"
+              download="KISLP-Proposal-Presentation.pptx"
+              data-testid="link-download-proposal-about"
+              className="shrink-0 inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3.5 rounded-lg font-bold text-sm hover:bg-white hover:text-primary transition-colors shadow-lg"
+            >
+              <Download size={16} />
+              Download
+            </a>
+          </motion.div>
         </div>
       </section>
 

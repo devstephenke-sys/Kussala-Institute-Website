@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowRight, Globe, Shield, Users, Award } from "lucide-react";
+import { ArrowRight, Globe, Shield, Users, Award, Download, FileDown } from "lucide-react";
 import logoPath from "/kislp-logo.jpeg";
 
 export default function Home() {
@@ -130,6 +130,43 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Download Proposal Section */}
+      <section className="py-20 bg-background border-y border-border">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col md:flex-row items-center gap-10 bg-card border border-border rounded-2xl p-10 shadow-sm"
+          >
+            <div className="flex-shrink-0 w-20 h-20 rounded-2xl bg-primary/10 border border-secondary/20 flex items-center justify-center">
+              <FileDown className="text-primary" size={38} />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <p className="text-secondary uppercase tracking-widest text-xs font-semibold mb-2">Official Document</p>
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-primary mb-2">KISLP Project Proposal Presentation</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Download the full KISLP project proposal to learn more about our strategic vision, planned programs, budget framework, and expected impact across all regions.
+              </p>
+            </div>
+            <div className="flex-shrink-0">
+              <motion.a
+                href="/KISLP-Proposal-Presentation.pptx"
+                download="KISLP-Proposal-Presentation.pptx"
+                data-testid="button-download-proposal"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-3 bg-secondary text-secondary-foreground px-8 py-4 rounded-xl font-bold text-base shadow-lg hover:bg-secondary/90 transition-colors"
+              >
+                <Download size={20} />
+                Download Proposal
+              </motion.a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
