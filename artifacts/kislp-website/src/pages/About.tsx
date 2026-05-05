@@ -8,12 +8,6 @@ const values = [
   { icon: BookOpen, title: "Excellence", desc: "We hold ourselves to the highest standards in research, training, and peacebuilding practice." },
 ];
 
-const team = [
-  { name: "Dr. Amara Kussala", role: "Founder & Executive Director", desc: "A visionary leader with 25+ years of experience in international diplomacy and conflict mediation." },
-  { name: "Prof. James Ochieng", role: "Director of Programs", desc: "Former UN advisor specializing in post-conflict reconstruction and governance reform." },
-  { name: "Dr. Fatima Al-Rashid", role: "Head of Research", desc: "Published author and expert in peacebuilding methodologies across East Africa and the Middle East." },
-  { name: "Mr. David Mwangi", role: "Director of Partnerships", desc: "Builds and manages strategic alliances with governments, NGOs, and private sector partners globally." },
-];
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -155,25 +149,21 @@ export default function About() {
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary mb-4">Leadership Team</h2>
             <div className="w-20 h-1 bg-secondary mx-auto" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-card border border-border rounded-xl p-8 text-center hover:shadow-md transition-shadow"
-              >
-                <div className="w-20 h-20 rounded-full bg-primary/10 border-2 border-secondary/30 flex items-center justify-center mx-auto mb-5">
-                  <span className="text-primary font-serif font-bold text-xl">{member.name.split(" ").map(n => n[0]).join("").slice(0, 2)}</span>
-                </div>
-                <h3 className="font-serif font-bold text-foreground mb-1">{member.name}</h3>
-                <p className="text-secondary text-sm font-semibold mb-3">{member.role}</p>
-                <p className="text-muted-foreground text-sm leading-relaxed">{member.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl mx-auto bg-card border-2 border-dashed border-secondary/30 rounded-2xl p-16 text-center"
+          >
+            <div className="w-20 h-20 rounded-full bg-primary/10 border-2 border-secondary/30 flex items-center justify-center mx-auto mb-6">
+              <span className="text-secondary font-serif font-bold text-2xl">?</span>
+            </div>
+            <h3 className="text-2xl font-serif font-bold text-primary mb-3">To Be Determined</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              The KISLP leadership team is currently being assembled. We are recruiting exceptional individuals with deep expertise in strategic leadership, peacebuilding, diplomacy, and governance.
+            </p>
+          </motion.div>
         </div>
       </section>
     </div>
