@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Users, Star, Globe, BookOpen, ArrowRight, CheckCircle, TrendingUp } from "lucide-react";
+import { Users, Star, Globe, BookOpen, ArrowRight, CheckCircle, TrendingUp, Shield, Award, Handshake } from "lucide-react";
 
 const roadmap = [
   {
@@ -34,6 +34,27 @@ const roadmap = [
     outcome: "Established status as a premier regional think tank.",
     color: "bg-secondary",
     items: ["African Leadership & Peace Index launched", "Multi-year donor funding secured", "Premier regional think tank status", "Pan-African strategic partnerships"],
+  },
+];
+
+const governance = [
+  {
+    icon: Shield,
+    title: "Board of Trustees",
+    responsibility: "Strategic oversight, policy approval, and financial accountability.",
+    detail: "The Board provides the highest level of governance, ensuring KUI operates with integrity and in line with its founding mandate. It approves all major institutional policies and ensures financial stewardship.",
+  },
+  {
+    icon: Award,
+    title: "Executive Director",
+    responsibility: "Institutional leadership, partnerships, and program supervision.",
+    detail: "The Executive Director leads daily operations, manages strategic alliances across South Sudan, DRC, and East Africa, and oversees all programmatic activities in line with the 2026–2029 Strategic Plan.",
+  },
+  {
+    icon: Handshake,
+    title: "Advisory Council",
+    responsibility: "Expert guidance from scholars, practitioners, and civic leaders.",
+    detail: "The Advisory Council brings together diverse expertise from academia, government, civil society, and the private sector to inform KUI's research, policy positions, and strategic direction.",
   },
 ];
 
@@ -75,7 +96,7 @@ const focusAreas = [
 const flagship = {
   title: "Ethical Leadership Academy",
   subtitle: "Flagship Program — Launching 2027",
-  desc: "The Ethical Leadership Academy is KISLP's premier training program, targeting 100+ leaders in its inaugural cohort. Designed for emerging and established leaders in fragile and post-conflict contexts, the Academy combines strategic thinking, ethical frameworks, and peacebuilding tools.",
+  desc: "The Ethical Leadership Academy is KUI's premier training program, targeting 100+ leaders in its inaugural cohort. Designed for emerging and established leaders in fragile and post-conflict contexts, the Academy combines strategic thinking, ethical frameworks, and peacebuilding tools.",
   features: [
     "Strategic thinking and decision-making",
     "Ethical governance frameworks",
@@ -109,7 +130,7 @@ export default function Programs() {
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
             className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto font-light"
           >
-            Roadmap to Impact — Four phases from Institutional Establishment to Policy Influence & Scale.
+            Roadmap to Impact — Four phases from Institutional Establishment to Policy Influence &amp; Scale.
           </motion.p>
         </div>
       </section>
@@ -154,8 +175,42 @@ export default function Programs() {
         </div>
       </section>
 
+      {/* Governance Structure */}
+      <section className="py-24 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Section I</p>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary mb-4">Governance Structure</h2>
+            <div className="w-20 h-1 bg-secondary mx-auto mb-6" />
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Three bodies working in concert to ensure KUI operates with integrity, accountability, and strategic purpose.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {governance.map((body, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.12 }}
+                className="bg-card border border-border rounded-2xl p-8 relative overflow-hidden group hover:shadow-lg transition-shadow"
+              >
+                <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/5 rounded-full blur-2xl group-hover:bg-secondary/10 transition-colors" />
+                <div className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-secondary/10 transition-colors flex items-center justify-center mb-6">
+                  <body.icon className="text-primary group-hover:text-secondary transition-colors" size={28} />
+                </div>
+                <h3 className="font-serif font-bold text-xl text-foreground mb-2">{body.title}</h3>
+                <p className="text-secondary text-sm font-semibold mb-4 italic">{body.responsibility}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">{body.detail}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Flagship Program */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -184,13 +239,16 @@ export default function Programs() {
         </div>
       </section>
 
-      {/* Focus Areas */}
-      <section className="py-24 bg-background">
+      {/* Our Focus Areas */}
+      <section className="py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Core Programming</p>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Our Focus Areas</h2>
-            <div className="w-20 h-1 bg-secondary mx-auto" />
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary mb-4">Our Focus Areas</h2>
+            <div className="w-20 h-1 bg-secondary mx-auto mb-6" />
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+              KUI addresses the root causes of fragility through four interconnected pillars of transformative action.
+            </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {focusAreas.map((prog, i) => (
@@ -233,7 +291,7 @@ export default function Programs() {
               Support the 2026–2029 Flagship Initiative
             </h2>
             <p className="text-secondary-foreground/80 mb-8 text-lg">
-              The SLPI-FS project requires a total investment of $3.1M. Partner with us to fund leadership programs, peacebuilding activities, and independent research.
+              The SLPI-FS project is our call to action. Partner with KUI to fund leadership programs, peacebuilding activities, and independent research that will shape the future of Africa.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/donate" className="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-md font-bold text-lg transition-all hover:bg-primary/90">

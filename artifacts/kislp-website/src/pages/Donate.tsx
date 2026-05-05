@@ -5,23 +5,15 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Heart, BookOpen, Users, Globe, Handshake, CheckCircle, CreditCard, Building2, DollarSign } from "lucide-react";
+import { Heart, Handshake, CheckCircle, CreditCard, Building2, DollarSign, Quote } from "lucide-react";
 import { useState } from "react";
-
-const budgetCategories = [
-  { icon: Users, label: "Leadership Programs", amount: "$900,000", pct: 29, color: "bg-primary" },
-  { icon: Handshake, label: "Peacebuilding Activities", amount: "$800,000", pct: 26, color: "bg-secondary" },
-  { icon: BookOpen, label: "Research & Publications", amount: "$600,000", pct: 19, color: "bg-primary" },
-  { icon: Globe, label: "Institutional Strengthening", amount: "$500,000", pct: 16, color: "bg-secondary" },
-  { icon: DollarSign, label: "Administration & MEL", amount: "$300,000", pct: 10, color: "bg-primary/60" },
-];
 
 const partnershipTiers = [
   {
     icon: Heart,
     name: "Technical Partner",
     tag: "Expertise",
-    desc: "Share your expertise in governance, conflict analysis, or peacebuilding with KISLP's research and program teams.",
+    desc: "Share your expertise in governance, conflict analysis, or peacebuilding with KUI's research and program teams.",
     benefits: ["Advisory Council contribution", "Co-authorship on research publications", "Recognition in annual reports", "Invitation to policy forums"],
     color: "border-border hover:border-secondary",
   },
@@ -29,7 +21,7 @@ const partnershipTiers = [
     icon: DollarSign,
     name: "Financial Investor",
     tag: "Investment",
-    desc: "Fund one or more categories of the 2026–2029 SLPI-FS flagship project budget.",
+    desc: "Invest in the 2026–2029 SLPI-FS flagship project and directly fund the next generation of African leaders.",
     benefits: ["Dedicated impact reporting", "Named donor recognition", "Board acknowledgement", "Co-branding on funded programs"],
     color: "border-secondary bg-secondary/5",
     featured: true,
@@ -90,7 +82,7 @@ export default function Donate() {
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl md:text-6xl font-serif font-bold text-white mb-4"
           >
-            Invest in KISLP
+            Invest in KUI
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }}
             className="text-secondary font-semibold mb-4 text-lg"
@@ -113,64 +105,37 @@ export default function Donate() {
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">Breaking the Vicious Cycle</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-8" />
             <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
-              Fragile societies face a <strong className="text-foreground">"vicious cycle"</strong> of weak institutions and leadership deficits. KISLP proposes that sustainable peace is only possible through evidence-based policy and ethical capacity building — addressing root causes, not symptoms.
+              Fragile societies face a <strong className="text-foreground">"vicious cycle"</strong> of weak institutions and leadership deficits. KUSSALA Institute proposes that sustainable peace is only possible through evidence-based policy and ethical capacity building — addressing root causes, not symptoms.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Budget Summary */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Budget Summary 2026–2029</p>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">$3,100,000 Total Investment</h2>
-            <div className="w-20 h-1 bg-secondary mx-auto" />
-          </div>
-          <motion.div {...fadeUp} className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
-            <div className="bg-primary p-6 flex items-center justify-between">
-              <span className="font-serif font-bold text-white text-xl">Category</span>
-              <span className="font-serif font-bold text-white text-xl">Estimated USD</span>
-            </div>
-            {budgetCategories.map((cat, i) => (
-              <div key={i} className={`p-5 border-b border-border last:border-0 ${i % 2 === 0 ? "bg-card" : "bg-muted/20"}`}>
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <cat.icon className="text-primary" size={18} />
-                    </div>
-                    <span className="font-semibold text-foreground">{cat.label}</span>
-                  </div>
-                  <span className="font-bold text-primary text-lg">{cat.amount}</span>
-                </div>
-                <div className="w-full bg-muted rounded-full h-2 mt-2">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${cat.pct}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: i * 0.1 }}
-                    className={`h-2 rounded-full ${cat.color}`}
-                  />
-                </div>
-              </div>
-            ))}
-            <div className="bg-primary p-5 flex items-center justify-between">
-              <span className="font-serif font-bold text-white text-lg">Total Investment</span>
-              <span className="font-serif font-bold text-secondary text-2xl">$3,100,000</span>
-            </div>
-          </motion.div>
+      {/* Motivating Quote */}
+      <section className="py-16 bg-primary relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/5 rounded-full blur-3xl" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Quote className="text-secondary mx-auto mb-5 opacity-60" size={36} />
+          <motion.blockquote
+            {...fadeUp}
+            className="text-xl md:text-3xl font-serif font-bold text-white mb-5 leading-relaxed"
+          >
+            "Your investment does not just fund a program — it plants a seed of peace that will grow for generations."
+          </motion.blockquote>
+          <p className="text-secondary font-semibold tracking-widest text-xs uppercase">— KUSSALA Institute (KUI)</p>
         </div>
       </section>
 
       {/* Partnership Types */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">How to Partner</p>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Three Ways to Join KISLP</h2>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Three Ways to Join KUI</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4" />
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Whether through expertise, investment, or strategic alignment — your engagement transforms lives.
+              Whether through expertise, investment, or strategic alignment — your engagement transforms lives and builds the Africa we all deserve.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -206,7 +171,26 @@ export default function Donate() {
         </div>
       </section>
 
-      {/* Form + Bank Info */}
+      {/* Why Your Support Matters */}
+      <section className="py-16 bg-background">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div {...fadeUp} className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            {[
+              { num: "01", heading: "You Shape History", body: "Africa's post-conflict societies are at a turning point. Your partnership helps write a new chapter — one defined by integrity, stability, and shared prosperity." },
+              { num: "02", heading: "You Empower Leaders", body: "Every dollar invested develops ethical leaders who carry your values into government, civil society, and communities for decades to come." },
+              { num: "03", heading: "You Build Lasting Peace", body: "KUI's research-driven model addresses root causes, not symptoms. Your support creates ripple effects that reach communities, borders, and generations." },
+            ].map((item, i) => (
+              <div key={i} className="bg-muted/40 border border-border rounded-2xl p-8">
+                <div className="text-4xl font-serif font-bold text-secondary/40 mb-4">{item.num}</div>
+                <h3 className="font-serif font-bold text-xl text-primary mb-3">{item.heading}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Form + Contact Info */}
       <section className="py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -219,7 +203,7 @@ export default function Donate() {
                   </div>
                   <h3 className="text-2xl font-serif font-bold text-primary mb-3">Thank You!</h3>
                   <p className="text-muted-foreground max-w-sm">
-                    Your support for KISLP is deeply appreciated. Our team will be in touch within 24 hours to discuss your partnership.
+                    Your support for KUSSALA Institute is deeply appreciated. Our team will be in touch within 24 hours to discuss your partnership.
                   </p>
                 </div>
               ) : (
@@ -268,8 +252,8 @@ export default function Donate() {
                       )} />
                       <FormField control={form.control} name="category" render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Preferred Budget Category (Optional)</FormLabel>
-                          <FormControl><Input placeholder="e.g. Leadership Programs, Research..." {...field} /></FormControl>
+                          <FormLabel>Partnership Type (Optional)</FormLabel>
+                          <FormControl><Input placeholder="e.g. Technical Partner, Financial Investor, Strategic Ally..." {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
                       )} />
@@ -286,7 +270,7 @@ export default function Donate() {
               )}
             </motion.div>
 
-            {/* Bank + Contact Info */}
+            {/* Contact Info */}
             <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.1 }} className="space-y-8">
               <div className="bg-primary rounded-2xl p-10 text-primary-foreground relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-secondary/10 rounded-full blur-3xl" />
@@ -295,7 +279,7 @@ export default function Donate() {
                   <h3 className="text-xl font-serif font-bold">Formal Inquiries</h3>
                 </div>
                 <p className="text-primary-foreground/80 text-sm mb-6">
-                  Organizations interested in formal financial investment or multi-year partnerships should contact KISLP directly.
+                  Organizations interested in formal financial investment or multi-year partnerships should contact KUI directly.
                 </p>
                 <div className="space-y-4">
                   {[
@@ -313,22 +297,11 @@ export default function Donate() {
               </div>
 
               <div className="bg-secondary/10 border border-secondary/20 rounded-2xl p-8">
-                <h3 className="font-serif font-bold text-primary text-lg mb-4">Budget Allocation</h3>
-                <ul className="space-y-3 text-sm text-muted-foreground">
-                  {budgetCategories.map((cat, i) => (
-                    <li key={i} className="flex items-center justify-between gap-2">
-                      <span className="flex items-center gap-2">
-                        <CheckCircle size={14} className="text-secondary shrink-0" />
-                        {cat.label}
-                      </span>
-                      <span className="font-semibold text-foreground shrink-0">{cat.amount}</span>
-                    </li>
-                  ))}
-                  <li className="flex items-center justify-between gap-2 border-t border-border pt-3 mt-1">
-                    <span className="font-bold text-foreground">Total Investment</span>
-                    <span className="font-bold text-primary text-base">$3,100,000</span>
-                  </li>
-                </ul>
+                <Quote className="text-secondary mb-4" size={24} />
+                <blockquote className="font-serif text-lg text-primary font-bold italic mb-3 leading-relaxed">
+                  "We recognize that the road to sustainable peace is a collective journey. We cannot achieve this vision in isolation."
+                </blockquote>
+                <p className="text-muted-foreground text-sm">— KUSSALA Institute Founding Charter</p>
               </div>
             </motion.div>
           </div>

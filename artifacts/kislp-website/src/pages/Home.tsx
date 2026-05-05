@@ -69,18 +69,18 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35 }}
-            className="text-primary-foreground/75 text-base md:text-lg mb-3 max-w-2xl mx-auto font-light italic"
+            className="text-lg md:text-xl text-primary-foreground/85 mb-5 max-w-3xl mx-auto font-light"
           >
-            Presentation by: Bishop Kussala Barani Hiiboro Edwardo
+            An independent, non-partisan, research-driven, and action-oriented institute forming visionary leaders and advancing strategic thinking for just, stable, and flourishing societies.
           </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="text-lg md:text-xl text-primary-foreground/80 mb-10 max-w-3xl mx-auto font-light"
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-base text-primary-foreground/70 mb-10 max-w-2xl mx-auto font-light italic"
           >
-            An independent, non-partisan, research-driven, and action-oriented institute forming visionary leaders and advancing strategic thinking for just, stable, and flourishing societies.
+            The road to sustainable peace begins with one courageous decision — to lead with integrity and purpose.
           </motion.p>
 
           <motion.div
@@ -99,15 +99,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Budget Stats */}
+      {/* Impact Stats */}
       <section className="py-16 bg-background border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-border">
             {[
-              { value: "$3.1M", label: "Total Investment 2026–2029", sub: "Flagship Donor Project" },
               { value: "100+", label: "Leaders — Year 1 Target", sub: "Ethical Leadership Academy" },
               { value: "300+", label: "Participants by 2028", sub: "Regional Consolidation Phase" },
               { value: "3", label: "Focus Regions", sub: "South Sudan · DRC · East Africa" },
+              { value: "2029", label: "African Leadership & Peace Index", sub: "Premier Regional Think Tank" },
             ].map((stat, i) => (
               <motion.div
                 key={i}

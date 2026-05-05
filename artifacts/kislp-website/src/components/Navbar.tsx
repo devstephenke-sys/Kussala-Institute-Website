@@ -23,8 +23,8 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3">
             <img src={logoPath} alt="KISLP Logo" className="h-12 w-auto object-contain rounded-full border-2 border-primary" />
             <div className="hidden sm:block flex-col">
-              <span className="font-serif font-bold text-primary tracking-wide text-lg block leading-tight">KISLP</span>
-              <span className="text-xs text-muted-foreground uppercase tracking-widest font-medium">Peacebuilding & Leadership</span>
+              <span className="font-serif font-bold text-primary tracking-wide text-lg block leading-tight">KUI</span>
+              <span className="text-xs text-muted-foreground uppercase tracking-widest font-medium">KUSSALA Institute</span>
             </div>
           </Link>
 
