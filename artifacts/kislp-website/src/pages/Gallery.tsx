@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const galleryItems = [
   {
@@ -87,71 +87,47 @@ const galleryItems = [
     location: "South Sudan",
     category: "Peacebuilding",
   },
-  {
-    src: "/gallery/peace-conference-nairobi.jpg",
-    title: "Global Peace Leadership Conference",
-    location: "Nairobi, Kenya — 2024",
-    category: "Conferences",
-  },
-  {
-    src: "/gallery/peace-leadership-highlights.jpg",
-    title: "Leadership Summit Highlights",
-    location: "Africa — 2024",
-    category: "Conferences",
-  },
-  {
-    src: "/gallery/youth-leadership-workshop.jpg",
-    title: "Youth Capacity Building Workshop",
-    location: "African Union — CIEFFA",
-    category: "Youth",
-  },
-  {
-    src: "/gallery/youth-peace-programme.jpg",
-    title: "Youth for Peace Programme",
-    location: "UNESCO Intercultural Leadership",
-    category: "Youth",
-  },
-  {
-    src: "/gallery/women-leaders-africa.jpg",
-    title: "African Women Leaders Network",
-    location: "African Union",
-    category: "Women",
-  },
-  {
-    src: "/gallery/africa-women-summit.jpg",
-    title: "Africa Women Summit",
-    location: "Health & Empowerment Initiative",
-    category: "Women",
-  },
-  {
-    src: "/gallery/reconciliation-village-rwanda.jpg",
-    title: "Reconciliation Village",
-    location: "Bugesera, Rwanda",
-    category: "Conferences",
-  },
 ];
 
-const categories = ["All", "Founder", "Community", "Peacebuilding", "Leadership", "Youth", "Women", "Conferences"];
+const categories = ["All", "Founder", "Community", "Leadership", "Peacebuilding"];
+
+const variants = {
+  enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
+};
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [current, setCurrent] = useState(0);
+  const [dir, setDir] = useState(1);
 
   const filtered =
     activeCategory === "All"
       ? galleryItems
       : galleryItems.filter((g) => g.category === activeCategory);
 
-  const openLightbox = (idx: number) => setLightboxIndex(idx);
-  const closeLightbox = () => setLightboxIndex(null);
-  const prevImage = () => {
-    if (lightboxIndex === null) return;
-    setLightboxIndex((lightboxIndex - 1 + filtered.length) % filtered.length);
-  };
-  const nextImage = () => {
-    if (lightboxIndex === null) return;
-    setLightboxIndex((lightboxIndex + 1) % filtered.length);
-  };
+  const goTo = useCallback(
+    (idx: number, direction: number) => {
+      setDir(direction);
+      setCurrent((idx + filtered.length) % filtered.length);
+    },
+    [filtered.length]
+  );
+
+  const prev = () => goTo(current - 1, -1);
+  const next = useCallback(() => goTo(current + 1, 1), [current, goTo]);
+
+  useEffect(() => {
+    setCurrent(0);
+  }, [activeCategory]);
+
+  useEffect(() => {
+    const id = setInterval(() => next(), 5000);
+    return () => clearInterval(id);
+  }, [next]);
+
+  const item = filtered[current] ?? filtered[0];
 
   return (
     <div className="w-full">
@@ -195,12 +171,12 @@ export default function Gallery() {
 
       {/* Filter Tabs */}
       <section className="py-8 bg-background border-b border-border sticky top-20 z-30 backdrop-blur-md bg-background/95">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-3 justify-center">
+        <div className="max-w-5xl mx-auto px-4 flex flex-wrap gap-3 justify-center">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
+              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${
                 activeCategory === cat
                   ? "bg-primary text-white shadow-md scale-105"
                   : "bg-muted text-muted-foreground hover:bg-muted/70"
@@ -212,91 +188,108 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* Grid */}
-      <section className="py-16 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            <AnimatePresence>
-              {filtered.map((item, idx) => (
-                <motion.div
-                  key={item.src}
-                  layout
-                  initial={{ opacity: 0, scale: 0.92 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.88 }}
-                  transition={{ duration: 0.35 }}
-                  className="group relative rounded-xl overflow-hidden shadow-md cursor-pointer bg-card border border-border hover:shadow-xl transition-shadow"
-                  onClick={() => openLightbox(idx)}
-                >
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={item.src}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                    <div className="flex items-center gap-2 mb-1">
-                      <ZoomIn size={16} className="text-secondary" />
-                      <span className="text-secondary text-xs font-semibold uppercase tracking-wider">{item.category}</span>
-                    </div>
-                    <p className="text-white font-semibold text-sm leading-tight">{item.title}</p>
-                    <p className="text-white/70 text-xs mt-0.5">{item.location}</p>
-                  </div>
-                  <div className="p-3">
-                    <p className="text-sm font-semibold text-foreground truncate">{item.title}</p>
-                    <p className="text-xs text-muted-foreground truncate">{item.location}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-          {filtered.length === 0 && (
-            <p className="text-center text-muted-foreground py-20">No images in this category.</p>
-          )}
-        </div>
-      </section>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightboxIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-            onClick={closeLightbox}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="relative max-w-4xl w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={filtered[lightboxIndex].src}
-                alt={filtered[lightboxIndex].title}
-                className="w-full rounded-xl object-contain max-h-[75vh] shadow-2xl"
+      {/* Slider */}
+      {item && (
+        <section className="bg-[#0a0f1e] py-0">
+          {/* Main slide */}
+          <div className="relative w-full" style={{ height: "clamp(380px, 60vw, 680px)" }}>
+            <AnimatePresence custom={dir} initial={false}>
+              <motion.img
+                key={item.src}
+                src={item.src}
+                alt={item.title}
+                custom={dir}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.45, ease: "easeInOut" }}
+                className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="mt-4 text-center">
-                <p className="text-white font-semibold text-lg">{filtered[lightboxIndex].title}</p>
-                <p className="text-white/60 text-sm">{filtered[lightboxIndex].location}</p>
-              </div>
-              <button onClick={closeLightbox} className="absolute -top-4 -right-4 bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors">
-                <X size={20} />
-              </button>
-              <button onClick={prevImage} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors">
-                <ChevronLeft size={24} />
-              </button>
-              <button onClick={nextImage} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors">
-                <ChevronRight size={24} />
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </AnimatePresence>
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+
+            {/* Caption */}
+            <div className="absolute bottom-0 left-0 right-0 px-6 pb-8 md:px-16">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={item.src + "-caption"}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <span className="inline-block bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+                    {item.category}
+                  </span>
+                  <p className="text-white font-serif font-bold text-xl md:text-3xl leading-tight drop-shadow">
+                    {item.title}
+                  </p>
+                  <p className="text-white/65 text-sm mt-1">{item.location}</p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Arrow buttons */}
+            <button
+              onClick={prev}
+              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/25 border border-white/20 text-white rounded-full p-3 md:p-4 transition-all backdrop-blur-sm z-10"
+              aria-label="Previous"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={next}
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/25 border border-white/20 text-white rounded-full p-3 md:p-4 transition-all backdrop-blur-sm z-10"
+              aria-label="Next"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Counter */}
+            <div className="absolute top-5 right-6 bg-black/40 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">
+              {current + 1} / {filtered.length}
+            </div>
+          </div>
+
+          {/* Thumbnail strip */}
+          <div className="bg-[#0a0f1e] px-4 py-5 overflow-x-auto">
+            <div className="flex gap-3 justify-center min-w-max mx-auto">
+              {filtered.map((img, idx) => (
+                <button
+                  key={img.src}
+                  onClick={() => goTo(idx, idx > current ? 1 : -1)}
+                  className={`relative shrink-0 rounded-lg overflow-hidden transition-all duration-300 ${
+                    idx === current
+                      ? "ring-2 ring-secondary opacity-100 scale-105"
+                      : "opacity-45 hover:opacity-70"
+                  }`}
+                  style={{ width: 90, height: 60 }}
+                  aria-label={img.title}
+                >
+                  <img src={img.src} alt={img.title} className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Dot indicators */}
+          <div className="flex justify-center gap-2 pb-6">
+            {filtered.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => goTo(idx, idx > current ? 1 : -1)}
+                className={`rounded-full transition-all duration-300 ${
+                  idx === current ? "bg-secondary w-6 h-2" : "bg-white/30 w-2 h-2 hover:bg-white/60"
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
