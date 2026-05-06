@@ -7,8 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Mail, Send, CheckCircle, Handshake, BookOpen, DollarSign } from "lucide-react";
+import { MapPin, Mail, Send, CheckCircle, Handshake, BookOpen, DollarSign, Loader2, AlertCircle } from "lucide-react";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -43,16 +44,52 @@ const partnershipTypes = [
   },
 ];
 
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
+
+const subjectLabels: Record<string, string> = {
+  technical: "Technical Partnership",
+  financial: "Financial Investment",
+  strategic: "Strategic Alliance",
+  programs: "Program Inquiry",
+  media: "Media & Press",
+  research: "Research Collaboration",
+  other: "Other",
+};
+
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { name: "", email: "", organization: "", subject: "", message: "" },
   });
 
-  function onSubmit(_values: FormValues) {
-    setSubmitted(true);
+  async function onSubmit(values: FormValues) {
+    setSending(true);
+    setSendError(null);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: values.name,
+          from_email: values.email,
+          organization: values.organization || "Not provided",
+          subject: subjectLabels[values.subject] ?? values.subject,
+          message: values.message,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      setSubmitted(true);
+    } catch {
+      setSendError("Unable to send your message. Please try again or email us directly at bishophiiboro@yahoo.com.");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -268,9 +305,29 @@ export default function Contact() {
                           <FormMessage />
                         </FormItem>
                       )} />
-                      <Button type="submit" className="w-full bg-primary text-white hover:bg-primary/90 py-6 text-base font-semibold" data-testid="button-submit">
-                        <Send size={18} className="mr-2" />
-                        Submit Inquiry
+                      {sendError && (
+                        <div className="flex items-start gap-3 bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-3 text-sm text-destructive">
+                          <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                          <span>{sendError}</span>
+                        </div>
+                      )}
+                      <Button
+                        type="submit"
+                        disabled={sending}
+                        className="w-full bg-primary text-white hover:bg-primary/90 py-6 text-base font-semibold disabled:opacity-70"
+                        data-testid="button-submit"
+                      >
+                        {sending ? (
+                          <>
+                            <Loader2 size={18} className="mr-2 animate-spin" />
+                            Sending…
+                          </>
+                        ) : (
+                          <>
+                            <Send size={18} className="mr-2" />
+                            Submit Inquiry
+                          </>
+                        )}
                       </Button>
                     </form>
                   </Form>

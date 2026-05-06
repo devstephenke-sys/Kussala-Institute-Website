@@ -34,3 +34,10 @@ externalPort = 3002
 [[ports]]
 localPort = 21976
 externalPort = 3000
+
+[userenv]
+
+[userenv.shared]
+VITE_EMAILJS_PUBLIC_KEY = "Q9srh9TZi1Ed8jh-u"
+VITE_EMAILJS_SERVICE_ID = "service_064i6qt"
+VITE_EMAILJS_TEMPLATE_ID = "template_njcmlep"
