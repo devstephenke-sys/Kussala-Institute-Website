@@ -42,7 +42,7 @@ export default function About() {
       {/* Hero */}
       <section
         className="relative py-32 flex items-center justify-center overflow-hidden"
-        style={{ backgroundImage: "url('/gallery/women-leaders-africa.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
+        style={{ backgroundImage: "url('/gallery/bishop-outdoor-gathering.jpeg')", backgroundSize: "cover", backgroundPosition: "center 30%" }}
       >
         <div className="absolute inset-0 bg-primary/82" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -95,6 +95,59 @@ export default function About() {
                   <p className="text-muted-foreground text-sm leading-relaxed">{art.text}</p>
                 </div>
               ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder */}
+      <section className="py-24 bg-background border-t border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Photo */}
+            <motion.div
+              {...fadeUp}
+              className="relative"
+            >
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                <img
+                  src="/gallery/bishop-flowers-community.jpeg"
+                  alt="Bishop Kussala Barani Hiiboro Edwardo — Founder of KUI"
+                  className="w-full h-auto object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <span className="inline-block bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-2">
+                    Founder
+                  </span>
+                  <p className="text-white font-serif font-bold text-lg leading-tight">
+                    Bishop Kussala Barani Hiiboro Edwardo
+                  </p>
+                  <p className="text-white/75 text-sm">Catholic Diocese of Tombura-Yambio · South Sudan</p>
+                </div>
+              </div>
+              <div className="absolute -bottom-6 -right-6 w-40 h-40 bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
+            </motion.div>
+
+            {/* Text */}
+            <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.15 }}>
+              <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Founding Vision</p>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">
+                A Leader Forged by Service
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-5">
+                Bishop Kussala Barani Hiiboro Edwardo has served the people of South Sudan for decades — crossing rivers, walking with communities, negotiating with armed factions, and championing reconciliation from the ground up. His life is the living proof of what strategic, servant leadership can accomplish.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-5">
+                Drawing on this hard-won experience, Bishop Kussala founded the KUSSALA Institute for Strategic Leadership and Peacebuilding (KUI) — not as an abstract academic venture, but as a practical institution rooted in the realities of fragile states, conflict zones, and communities striving for dignity.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                KUI exists because he witnessed — firsthand — that durable peace requires trained leaders, accountable institutions, and communities that believe change is possible. Every programme, every fellowship, and every research initiative at KUI carries the weight of that conviction.
+              </p>
+              <blockquote className="border-l-4 border-secondary pl-6 py-2 italic text-primary font-medium text-lg">
+                "Strategic Leadership is the foundation; Sustainable Peace is the harvest."
+              </blockquote>
+              <p className="text-muted-foreground text-sm mt-3">— Bishop Kussala Barani Hiiboro Edwardo, Founder</p>
             </motion.div>
           </div>
         </div>

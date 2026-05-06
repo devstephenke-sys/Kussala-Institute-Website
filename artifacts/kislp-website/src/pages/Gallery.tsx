@@ -4,6 +4,90 @@ import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 
 const galleryItems = [
   {
+    src: "/gallery/bishop-flowers-community.jpeg",
+    title: "Bishop Welcomed by the Community",
+    location: "South Sudan — Diocese of Tombura-Yambio",
+    category: "Founder",
+  },
+  {
+    src: "/gallery/bishop-portrait-robes.jpeg",
+    title: "Bishop Kussala — Founder of KUI",
+    location: "Diocese of Tombura-Yambio",
+    category: "Founder",
+  },
+  {
+    src: "/gallery/bishop-community-walk.jpeg",
+    title: "Walking With the People",
+    location: "South Sudan",
+    category: "Founder",
+  },
+  {
+    src: "/gallery/bishop-community-wave.jpeg",
+    title: "Celebrating With the Faithful",
+    location: "Diocese of Tombura-Yambio",
+    category: "Founder",
+  },
+  {
+    src: "/gallery/bishop-children-embrace.jpeg",
+    title: "With the Children of South Sudan",
+    location: "South Sudan",
+    category: "Community",
+  },
+  {
+    src: "/gallery/bishop-children-village.jpeg",
+    title: "Joyful with Village Children",
+    location: "South Sudan",
+    category: "Community",
+  },
+  {
+    src: "/gallery/bishop-community-listening.jpeg",
+    title: "Listening to the Community",
+    location: "Village Dialogue — South Sudan",
+    category: "Community",
+  },
+  {
+    src: "/gallery/bishop-outdoor-gathering.jpeg",
+    title: "Outdoor Community Gathering",
+    location: "South Sudan",
+    category: "Community",
+  },
+  {
+    src: "/gallery/bishop-harvest-field.jpeg",
+    title: "Blessing the Harvest",
+    location: "Agricultural Visit — South Sudan",
+    category: "Community",
+  },
+  {
+    src: "/gallery/bishop-crossing-river.jpeg",
+    title: "In Service — Crossing to the People",
+    location: "South Sudan",
+    category: "Community",
+  },
+  {
+    src: "/gallery/bishop-speaking-mic.jpeg",
+    title: "Bishop Addresses the Community",
+    location: "South Sudan",
+    category: "Leadership",
+  },
+  {
+    src: "/gallery/bishop-leaders-group.jpeg",
+    title: "Meeting With Local Leaders",
+    location: "Diocese of Tombura-Yambio",
+    category: "Leadership",
+  },
+  {
+    src: "/gallery/bishop-military-dialogue.jpeg",
+    title: "Dialogue with Military Command",
+    location: "Peace Engagement — South Sudan",
+    category: "Peacebuilding",
+  },
+  {
+    src: "/gallery/bishop-military-group.jpeg",
+    title: "Peace Engagement with Security Forces",
+    location: "South Sudan",
+    category: "Peacebuilding",
+  },
+  {
     src: "/gallery/peace-conference-nairobi.jpg",
     title: "Global Peace Leadership Conference",
     location: "Nairobi, Kenya — 2024",
@@ -43,17 +127,11 @@ const galleryItems = [
     src: "/gallery/reconciliation-village-rwanda.jpg",
     title: "Reconciliation Village",
     location: "Bugesera, Rwanda",
-    category: "Community",
-  },
-  {
-    src: "/gallery/reconciliation-nyamata.jpg",
-    title: "Community Reconciliation",
-    location: "Nyamata, Rwanda",
-    category: "Community",
+    category: "Conferences",
   },
 ];
 
-const categories = ["All", "Conferences", "Youth", "Women", "Community"];
+const categories = ["All", "Founder", "Community", "Peacebuilding", "Leadership", "Youth", "Women", "Conferences"];
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -66,7 +144,6 @@ export default function Gallery() {
 
   const openLightbox = (idx: number) => setLightboxIndex(idx);
   const closeLightbox = () => setLightboxIndex(null);
-
   const prevImage = () => {
     if (lightboxIndex === null) return;
     setLightboxIndex((lightboxIndex - 1 + filtered.length) % filtered.length);
@@ -82,12 +159,12 @@ export default function Gallery() {
       <section
         className="relative py-32 flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: "url('/gallery/peace-conference-nairobi.jpg')",
+          backgroundImage: "url('/gallery/bishop-community-wave.jpeg')",
           backgroundSize: "cover",
           backgroundPosition: "center 30%",
         }}
       >
-        <div className="absolute inset-0 bg-primary/75" />
+        <div className="absolute inset-0 bg-primary/78" />
         <div className="relative z-10 text-center px-4">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -111,13 +188,13 @@ export default function Gallery() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="text-primary-foreground/80 text-lg max-w-xl mx-auto"
           >
-            Moments of leadership, dialogue, and transformation from across Africa and beyond.
+            Moments of leadership, dialogue, and transformation — from community walks to peace negotiations across South Sudan and Africa.
           </motion.p>
         </div>
       </section>
 
       {/* Filter Tabs */}
-      <section className="py-10 bg-background border-b border-border sticky top-20 z-30 backdrop-blur-md bg-background/95">
+      <section className="py-8 bg-background border-b border-border sticky top-20 z-30 backdrop-blur-md bg-background/95">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-3 justify-center">
           {categories.map((cat) => (
             <button
@@ -138,10 +215,7 @@ export default function Gallery() {
       {/* Grid */}
       <section className="py-16 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
-          >
+          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             <AnimatePresence>
               {filtered.map((item, idx) => (
                 <motion.div
@@ -177,7 +251,6 @@ export default function Gallery() {
               ))}
             </AnimatePresence>
           </motion.div>
-
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-20">No images in this category.</p>
           )}
@@ -211,23 +284,13 @@ export default function Gallery() {
                 <p className="text-white font-semibold text-lg">{filtered[lightboxIndex].title}</p>
                 <p className="text-white/60 text-sm">{filtered[lightboxIndex].location}</p>
               </div>
-
-              <button
-                onClick={closeLightbox}
-                className="absolute -top-4 -right-4 bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors"
-              >
+              <button onClick={closeLightbox} className="absolute -top-4 -right-4 bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors">
                 <X size={20} />
               </button>
-              <button
-                onClick={prevImage}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors"
-              >
+              <button onClick={prevImage} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors">
                 <ChevronLeft size={24} />
               </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors"
-              >
+              <button onClick={nextImage} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors">
                 <ChevronRight size={24} />
               </button>
             </motion.div>
