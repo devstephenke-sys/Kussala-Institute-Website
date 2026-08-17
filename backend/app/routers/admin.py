@@ -275,6 +275,21 @@ def update_news(
     log_action(db, current_user, "UPDATE", "News", news_item.id, f"Updated news '{news_item.title}'", req)
     return NewsRead.model_validate(news_item)
 
+@router.delete("/news/{news_id}")
+def delete_news(
+    news_id: str,
+    req: Request,
+    current_user: User = Depends(require_roles([UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.EDITOR])),
+    db: Session = Depends(get_db)
+):
+    news_item = db.query(News).filter(News.id == news_id).first()
+    if not news_item:
+        raise HTTPException(status_code=404, detail="News item not found")
+    db.delete(news_item)
+    db.commit()
+    log_action(db, current_user, "DELETE", "News", news_id, f"Deleted news '{news_item.title}'", req)
+    return {"message": "News item deleted successfully"}
+
 # --- IMPACT STORIES CMS ---
 @router.get("/impact", response_model=PaginatedResponse[ImpactStoryRead])
 def get_admin_impact(
@@ -331,6 +346,43 @@ def create_impact_story(
     db.refresh(story)
     log_action(db, current_user, "CREATE", "ImpactStory", story.id, f"Created impact story '{story.title}'", req)
     return ImpactStoryRead.model_validate(story)
+
+@router.put("/impact/{story_id}", response_model=ImpactStoryRead)
+def update_impact_story(
+    story_id: str,
+    payload: ImpactStoryUpdate,
+    req: Request,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    story = db.query(ImpactStory).filter(ImpactStory.id == story_id).first()
+    if not story:
+        raise HTTPException(status_code=404, detail="Impact story not found")
+    if current_user.role == UserRole.CONTRIBUTOR and payload.status in [ContentStatus.APPROVED, ContentStatus.PUBLISHED]:
+        raise HTTPException(status_code=403, detail="Contributors cannot publish content directly.")
+    for field, val in payload.model_dump(exclude_unset=True).items():
+        setattr(story, field, val)
+    if payload.status == ContentStatus.PUBLISHED and not story.published_at:
+        story.published_at = datetime.utcnow()
+    db.commit()
+    db.refresh(story)
+    log_action(db, current_user, "UPDATE", "ImpactStory", story.id, f"Updated impact story '{story.title}'", req)
+    return ImpactStoryRead.model_validate(story)
+
+@router.delete("/impact/{story_id}")
+def delete_impact_story(
+    story_id: str,
+    req: Request,
+    current_user: User = Depends(require_roles([UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.EDITOR])),
+    db: Session = Depends(get_db)
+):
+    story = db.query(ImpactStory).filter(ImpactStory.id == story_id).first()
+    if not story:
+        raise HTTPException(status_code=404, detail="Impact story not found")
+    db.delete(story)
+    db.commit()
+    log_action(db, current_user, "DELETE", "ImpactStory", story_id, f"Deleted impact story '{story.title}'", req)
+    return {"message": "Impact story deleted successfully"}
 
 # --- MEDIA MANAGER ---
 @router.post("/media/upload", response_model=MediaRead)

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Plus, Edit2, Trash2, ArchiveIcon, Globe } from "lucide-react";
 import { api } from "../services/api";
+import RichTextEditor from "../components/RichTextEditor";
+import ImageUploader from "../components/ImageUploader";
 
 const STATUS_BADGE: Record<string, string> = {
   published: "bg-green-100 text-green-800 border border-green-200",
@@ -183,7 +185,6 @@ export default function NewsManager({ user }: { user: any }) {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-end gap-1">
-                        {/* Edit — always available */}
                         <button
                           onClick={() => openEditModal(item)}
                           title="Edit News Item"
@@ -192,7 +193,6 @@ export default function NewsManager({ user }: { user: any }) {
                           <Edit2 size={13} /> Edit
                         </button>
 
-                        {/* Unpublish — only for published items, editors/admins */}
                         {item.status === "published" && isEditor && (
                           <button
                             onClick={() => handleUnpublish(item)}
@@ -203,7 +203,6 @@ export default function NewsManager({ user }: { user: any }) {
                           </button>
                         )}
 
-                        {/* Archive — for published/approved, editors/admins */}
                         {["published", "approved", "in_review"].includes(item.status) && isEditor && (
                           <button
                             onClick={() => handleArchive(item)}
@@ -214,7 +213,6 @@ export default function NewsManager({ user }: { user: any }) {
                           </button>
                         )}
 
-                        {/* Delete — admins only */}
                         {isAdmin && (
                           <button
                             onClick={() => handleDelete(item.id, item.title)}
@@ -243,7 +241,7 @@ export default function NewsManager({ user }: { user: any }) {
       {/* Editor Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 space-y-6 shadow-2xl">
+          <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 space-y-6 shadow-2xl">
             <div className="flex items-center justify-between border-b pb-4">
               <div>
                 <h3 className="font-serif font-bold text-xl text-[#002B49]">
@@ -293,29 +291,22 @@ export default function NewsManager({ user }: { user: any }) {
 
               <div>
                 <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
-                  Content *
+                  News Content (Rich Text) *
                 </label>
-                <textarea
-                  rows={6}
-                  required
+                <RichTextEditor
                   value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border text-sm font-mono focus:ring-2 focus:ring-[#C5A059] outline-none"
+                  onChange={(val) => setContent(val)}
+                  placeholder="Write full news article content..."
+                  minHeight="220px"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
-                    Featured Image URL
-                  </label>
-                  <input
-                    type="text"
-                    value={featuredImage}
-                    onChange={(e) => setFeaturedImage(e.target.value)}
-                    className="w-full px-4 py-2 rounded-lg border text-sm"
-                  />
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ImageUploader
+                  value={featuredImage}
+                  onChange={(url) => setFeaturedImage(url)}
+                  label="Featured Image"
+                />
                 <div>
                   <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
                     Category

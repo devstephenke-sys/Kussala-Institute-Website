@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Plus, Edit2, Trash2, ArchiveIcon, Globe } from "lucide-react";
 import { api } from "../services/api";
+import RichTextEditor from "../components/RichTextEditor";
+import ImageUploader from "../components/ImageUploader";
 
 const STATUS_BADGE: Record<string, string> = {
   published: "bg-green-100 text-green-800 border border-green-200",
@@ -197,7 +199,6 @@ export default function ImpactManager({ user }: { user: any }) {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-end gap-1">
-                        {/* Edit — always available */}
                         <button
                           onClick={() => openEditModal(story)}
                           title="Edit Story"
@@ -206,7 +207,6 @@ export default function ImpactManager({ user }: { user: any }) {
                           <Edit2 size={13} /> Edit
                         </button>
 
-                        {/* Unpublish — only for published stories, editors/admins */}
                         {story.status === "published" && isEditor && (
                           <button
                             onClick={() => handleUnpublish(story)}
@@ -217,7 +217,6 @@ export default function ImpactManager({ user }: { user: any }) {
                           </button>
                         )}
 
-                        {/* Archive — for published/approved, editors/admins */}
                         {["published", "approved", "in_review"].includes(story.status) && isEditor && (
                           <button
                             onClick={() => handleArchive(story)}
@@ -228,7 +227,6 @@ export default function ImpactManager({ user }: { user: any }) {
                           </button>
                         )}
 
-                        {/* Delete — admins only */}
                         {isAdmin && (
                           <button
                             onClick={() => handleDelete(story.id, story.title)}
@@ -257,7 +255,7 @@ export default function ImpactManager({ user }: { user: any }) {
       {/* Editor Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 space-y-5 shadow-2xl">
+          <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 space-y-5 shadow-2xl">
             <div className="flex items-center justify-between border-b pb-4">
               <div>
                 <h3 className="font-serif font-bold text-xl text-[#002B49]">
@@ -307,15 +305,13 @@ export default function ImpactManager({ user }: { user: any }) {
 
               <div>
                 <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
-                  Full Story Content *
+                  Full Story Content (Rich Text) *
                 </label>
-                <textarea
-                  rows={7}
-                  required
-                  placeholder="Full impact narrative, outcomes, and beneficiary testimonials..."
+                <RichTextEditor
                   value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  className="w-full p-2.5 border rounded-lg text-sm font-mono focus:ring-2 focus:ring-[#C5A059] outline-none"
+                  onChange={(val) => setContent(val)}
+                  placeholder="Write full impact story narrative..."
+                  minHeight="220px"
                 />
               </div>
 
@@ -346,19 +342,12 @@ export default function ImpactManager({ user }: { user: any }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
-                    Featured Image URL
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="/gallery/impact-story.jpg"
-                    value={featuredImage}
-                    onChange={(e) => setFeaturedImage(e.target.value)}
-                    className="w-full p-2 border rounded-lg text-sm"
-                  />
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ImageUploader
+                  value={featuredImage}
+                  onChange={(url) => setFeaturedImage(url)}
+                  label="Featured Image"
+                />
                 <div>
                   <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
                     Beneficiary Info

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Plus, Edit2, Trash2, ArchiveIcon, Globe } from "lucide-react";
 import { api } from "../services/api";
+import RichTextEditor from "../components/RichTextEditor";
+import ImageUploader from "../components/ImageUploader";
 
 interface User {
   role: string;
@@ -177,7 +179,6 @@ export default function ArticlesManager({ user }: { user: User }) {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-end gap-1">
-                        {/* Edit — always available */}
                         <button
                           onClick={() => openEditModal(art)}
                           title="Edit Article"
@@ -186,7 +187,6 @@ export default function ArticlesManager({ user }: { user: User }) {
                           <Edit2 size={13} /> Edit
                         </button>
 
-                        {/* Unpublish — only visible for published articles, only editors/admins */}
                         {art.status === "published" && isEditor && (
                           <button
                             onClick={() => handleUnpublish(art)}
@@ -197,7 +197,6 @@ export default function ArticlesManager({ user }: { user: User }) {
                           </button>
                         )}
 
-                        {/* Archive — for published/approved, only editors/admins */}
                         {["published", "approved", "in_review"].includes(art.status) && isEditor && (
                           <button
                             onClick={() => handleArchive(art)}
@@ -208,7 +207,6 @@ export default function ArticlesManager({ user }: { user: User }) {
                           </button>
                         )}
 
-                        {/* Delete — only admins can permanently delete */}
                         {isAdmin && (
                           <button
                             onClick={() => handleDelete(art.id, art.title)}
@@ -289,31 +287,22 @@ export default function ArticlesManager({ user }: { user: User }) {
 
               <div>
                 <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
-                  Main Body Content *
+                  Main Body Content (Rich Text) *
                 </label>
-                <textarea
-                  rows={8}
-                  required
+                <RichTextEditor
                   value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  placeholder="Full article content (supports HTML/markdown)..."
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C5A059] outline-none text-sm font-mono"
+                  onChange={(val) => setContent(val)}
+                  placeholder="Write full article body..."
+                  minHeight="240px"
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
-                    Featured Image URL
-                  </label>
-                  <input
-                    type="text"
-                    value={featuredImage}
-                    onChange={(e) => setFeaturedImage(e.target.value)}
-                    placeholder="/gallery/peace-conference-nairobi.jpg"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C5A059] outline-none text-sm"
-                  />
-                </div>
+              <div className="space-y-4">
+                <ImageUploader
+                  value={featuredImage}
+                  onChange={(url) => setFeaturedImage(url)}
+                  label="Featured Image (Drag & Drop or Upload)"
+                />
 
                 <div>
                   <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
