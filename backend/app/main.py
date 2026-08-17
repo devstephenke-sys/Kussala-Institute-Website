@@ -31,6 +31,11 @@ app.add_middleware(
 os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=settings.UPLOAD_DIR), name="uploads")
 
+# Mount gallery directory for seeded/static images
+GALLERY_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "gallery")
+os.makedirs(GALLERY_DIR, exist_ok=True)
+app.mount("/gallery", StaticFiles(directory=GALLERY_DIR), name="gallery")
+
 # Include Routers
 app.include_router(auth.router, prefix=settings.API_V1_STR)
 app.include_router(admin.router, prefix=settings.API_V1_STR)
