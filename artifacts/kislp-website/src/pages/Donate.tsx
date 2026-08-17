@@ -5,8 +5,9 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Heart, Handshake, CheckCircle, CreditCard, Building2, DollarSign, Quote } from "lucide-react";
+import { Heart, Handshake, CheckCircle, CreditCard, Building2, DollarSign, Quote, Loader2, AlertCircle } from "lucide-react";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const partnershipTiers = [
   {
@@ -46,6 +47,10 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
+
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
@@ -55,14 +60,41 @@ const fadeUp = {
 
 export default function Donate() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { name: "", email: "", organization: "", amount: "", category: "" },
   });
 
-  function onSubmit(_values: FormValues) {
-    setSubmitted(true);
+  async function onSubmit(values: FormValues) {
+    setSending(true);
+    setSendError(null);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: values.name,
+          from_email: values.email,
+          organization: values.organization || "Not provided",
+          subject: "Donation / Partnership Interest",
+          message: [
+            `Proposed Contribution (USD): ${values.amount}`,
+            `Partnership Type: ${values.category || "Not provided"}`,
+            "",
+            "This inquiry was submitted from the Invest in KUI page.",
+          ].join("\n"),
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      setSubmitted(true);
+    } catch {
+      setSendError("Unable to send your inquiry. Please try again or email us directly at info@kussalainstitute.org.");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -257,12 +289,32 @@ export default function Donate() {
                           <FormMessage />
                         </FormItem>
                       )} />
-                      <Button type="submit" className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 py-6 text-base font-bold" data-testid="button-donate">
-                        <Heart size={18} className="mr-2" />
-                        Submit Partnership Interest
+                      {sendError && (
+                        <div className="flex items-start gap-3 bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-3 text-sm text-destructive">
+                          <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                          <span>{sendError}</span>
+                        </div>
+                      )}
+                      <Button
+                        type="submit"
+                        disabled={sending}
+                        className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 py-6 text-base font-bold disabled:opacity-70"
+                        data-testid="button-donate"
+                      >
+                        {sending ? (
+                          <>
+                            <Loader2 size={18} className="mr-2 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Heart size={18} className="mr-2" />
+                            Submit Partnership Interest
+                          </>
+                        )}
                       </Button>
                       <p className="text-xs text-muted-foreground text-center">
-                        Your inquiry will be directed to Bishop Kussala Barani Hiiboro Edwardo's team for a formal response.
+                        Your inquiry will be directed to our team at info@kussalainstitute.org for a formal response.
                       </p>
                     </form>
                   </Form>
@@ -284,7 +336,7 @@ export default function Donate() {
                 <div className="space-y-4">
                   {[
                     { label: "Official Contact", value: "Bishop Kussala Barani Hiiboro Edwardo" },
-                    { label: "Official Email", value: "bishophiiboro@yahoo.com" },
+                    { label: "Official Email", value: "info@kussalainstitute.org" },
                     { label: "Physical Address", value: "South Sudan, Plot 4979, Block 246, Muyenga" },
                     { label: "Project Reference", value: "SLPI-FS 2026–2029" },
                   ].map((row, i) => (

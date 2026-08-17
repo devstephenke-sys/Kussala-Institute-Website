@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Users, Star, Globe, BookOpen, ArrowRight, CheckCircle, TrendingUp, Shield, Award, Handshake } from "lucide-react";
+import { Users, Star, Globe, BookOpen, ArrowRight, CheckCircle, TrendingUp, Shield, Award, Handshake, Scale } from "lucide-react";
 
 const roadmap = [
   {
@@ -60,12 +60,26 @@ const governance = [
 
 const focusAreas = [
   {
+    icon: Scale,
+    title: "Ethical Governance & Accountability",
+    tag: "Governance Track",
+    desc: "Strengthening transparent institutions, integrity in public life, and accountable leadership as the bedrock of sustainable peace and inclusive development.",
+    features: [
+      "Public integrity and anti-corruption frameworks",
+      "Transparent institutions and oversight mechanisms",
+      "Accountable leadership in fragile and post-conflict contexts",
+      "Policy and legal literacy for civic actors",
+      "Alignment with Ethical Leadership Academy and strategic plan outcomes",
+    ],
+    color: "primary",
+  },
+  {
     icon: Users,
     title: "Youth Leadership & Civic Engagement",
     tag: "Youth Track",
     desc: "Empowering the next generation through structured leadership training, mentorship, and platforms for meaningful civic participation. The Peace Ambassador Youth Program targets young leaders for county-level dialogue and national advocacy.",
     features: ["Structured leadership training", "Mentorship programs", "Civic participation platforms", "Peace Ambassador Youth Program", "National Conference representation"],
-    color: "primary",
+    color: "secondary",
   },
   {
     icon: Star,
@@ -73,7 +87,7 @@ const focusAreas = [
     tag: "Inclusion Track",
     desc: "Strengthening the agency of women and persons with disabilities (PWDs) through tailored skills development and institutional support. The 'Women in Leadership' initiative launches in 2028.",
     features: ["Women in Leadership initiative (2028)", "PWD-focused skills development", "Tailored institutional support", "Gender-responsive programming", "Inclusive policy advisory"],
-    color: "secondary",
+    color: "primary",
   },
   {
     icon: Globe,
@@ -81,7 +95,7 @@ const focusAreas = [
     tag: "Resilience Track",
     desc: "Providing life-saving assistance and sustainable support systems for vulnerable populations in crisis-affected areas. Grounded in ethical leadership for stable governance.",
     features: ["Crisis response frameworks", "Community resilience building", "Ethical public financial management", "Revitalized Peace Agreement support", "Local governance strengthening"],
-    color: "primary",
+    color: "secondary",
   },
   {
     icon: BookOpen,
@@ -89,7 +103,7 @@ const focusAreas = [
     tag: "Economic Track",
     desc: "Promoting economic independence through Competency-Based Education and Training (CBET) and market-aligned vocational schooling to address unemployment and radicalization.",
     features: ["CBET curriculum development", "Market-aligned vocational training", "Economic independence programs", "Youth employment pathways", "Private sector linkages"],
-    color: "secondary",
+    color: "primary",
   },
 ];
 
@@ -246,7 +260,7 @@ export default function Programs() {
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary mb-4">Our Focus Areas</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-6" />
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-              KUI addresses the root causes of fragility through four interconnected pillars of transformative action.
+              KUI addresses the root causes of fragility through five interconnected pillars of transformative action.
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">

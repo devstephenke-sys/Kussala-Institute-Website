@@ -11,9 +11,9 @@ export default function Footer() {
           
           <div className="space-y-6">
             <Link href="/" className="flex items-center gap-3">
-              <img src={logoPath} alt="KISLP Logo" className="h-14 w-auto object-contain rounded-full bg-white p-1" />
+              <img src={logoPath} alt="KUI Logo" className="h-14 w-auto object-contain rounded-full bg-white p-1" />
               <div>
-                <span className="font-serif font-bold text-white tracking-wide text-xl block">KISLP</span>
+                <span className="font-serif font-bold text-white tracking-wide text-xl block">KUI</span>
               </div>
             </Link>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
@@ -60,7 +60,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-secondary shrink-0" size={18} />
-                <span className="text-primary-foreground/80 text-sm">contact@kislp.org</span>
+                <span className="text-primary-foreground/80 text-sm">info@kussalainstitute.org</span>
               </li>
             </ul>
           </div>

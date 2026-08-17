@@ -11,6 +11,11 @@ import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Programs from "@/pages/Programs";
 import Impact from "@/pages/Impact";
+import ImpactDetail from "@/pages/ImpactDetail";
+import Articles from "@/pages/Articles";
+import ArticleDetail from "@/pages/ArticleDetail";
+import NewsList from "@/pages/NewsList";
+import NewsDetail from "@/pages/NewsDetail";
 import Contact from "@/pages/Contact";
 import Donate from "@/pages/Donate";
 import Gallery from "@/pages/Gallery";
@@ -27,9 +32,14 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/programs" component={Programs} />
           <Route path="/impact" component={Impact} />
+          <Route path="/impact/:slug" component={ImpactDetail} />
+          <Route path="/articles" component={Articles} />
+          <Route path="/articles/:slug" component={ArticleDetail} />
+          <Route path="/news" component={NewsList} />
+          <Route path="/news/:slug" component={NewsDetail} />
           <Route path="/contact" component={Contact} />
           <Route path="/donate" component={Donate} />
-          <Route path="/gallery" component={Gallery} />
+          <Route path="/photos" component={Gallery} />
           <Route component={NotFound} />
         </Switch>
       </main>
@@ -37,6 +47,7 @@ function Router() {
     </div>
   );
 }
+
 
 function App() {
   return (

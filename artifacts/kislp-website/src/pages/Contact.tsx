@@ -23,14 +23,14 @@ type FormValues = z.infer<typeof formSchema>;
 
 const contactInfo = [
   { icon: MapPin, label: "Physical Address", value: "South Sudan\nPlot 4979, Block 246, Muyenga" },
-  { icon: Mail, label: "Official Email", value: "bishophiiboro@yahoo.com" },
+  { icon: Mail, label: "Official Email", value: "info@kussalainstitute.org" },
 ];
 
 const partnershipTypes = [
   {
     icon: BookOpen,
     title: "Technical Partnership",
-    desc: "Sharing expertise in governance and conflict analysis with KISLP's research and program teams.",
+    desc: "Sharing expertise in governance and conflict analysis with KUI's research and program teams.",
   },
   {
     icon: DollarSign,
@@ -86,7 +86,7 @@ export default function Contact() {
       );
       setSubmitted(true);
     } catch {
-      setSendError("Unable to send your message. Please try again or email us directly at bishophiiboro@yahoo.com.");
+      setSendError("Unable to send your message. Please try again or email us directly at info@kussalainstitute.org.");
     } finally {
       setSending(false);
     }
@@ -114,7 +114,7 @@ export default function Contact() {
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
             className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto font-light"
           >
-            We welcome formal inquiries from organizations interested in becoming part of the KISLP ecosystem.
+            We welcome formal inquiries from organizations interested in becoming part of the KUI ecosystem.
           </motion.p>
         </div>
       </section>
@@ -127,7 +127,7 @@ export default function Contact() {
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">Partnership Opportunities</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-6" />
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Whether through expertise, investment, or strategic alignment — there is a place for your organization in the KISLP mission.
+              Whether through expertise, investment, or strategic alignment — there is a place for your organization in the KUI mission.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
@@ -158,7 +158,7 @@ export default function Contact() {
             <p className="text-primary font-serif text-lg italic mb-3">
               "Together, we can transform the leadership landscape of the African continent and build a future defined by stability, integrity, and shared prosperity."
             </p>
-            <p className="text-secondary text-sm font-semibold uppercase tracking-wider">— KISLP Founding Charter</p>
+            <p className="text-secondary text-sm font-semibold uppercase tracking-wider">— KUI Founding Charter</p>
           </motion.blockquote>
         </div>
       </section>
@@ -231,7 +231,7 @@ export default function Contact() {
                   </div>
                   <h3 className="text-2xl font-serif font-bold text-primary mb-3">Inquiry Received</h3>
                   <p className="text-muted-foreground max-w-sm">
-                    Thank you for reaching out to KISLP. A member of our team will be in touch within two business days.
+                    Thank you for reaching out to KUI. A member of our team will be in touch within two business days.
                   </p>
                 </div>
               ) : (
@@ -296,7 +296,7 @@ export default function Contact() {
                           <FormLabel>Message</FormLabel>
                           <FormControl>
                             <Textarea
-                              placeholder="Describe how your organization wishes to engage with KISLP..."
+                              placeholder="Describe how your organization wishes to engage with KUI..."
                               className="min-h-[140px] resize-none"
                               data-testid="textarea-message"
                               {...field}

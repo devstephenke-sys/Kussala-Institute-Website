@@ -8,7 +8,9 @@ const navLinks = [
   { href: "/about", label: "About" },
   { href: "/programs", label: "Programs" },
   { href: "/impact", label: "Impact" },
-  { href: "/gallery", label: "Gallery" },
+  { href: "/articles", label: "Articles" },
+  { href: "/news", label: "News" },
+  { href: "/photos", label: "Gallery" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -21,14 +23,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link href="/" className="flex items-center gap-3">
-            <img src={logoPath} alt="KISLP Logo" className="h-12 w-auto object-contain rounded-full border-2 border-primary" />
+            <img src={logoPath} alt="KUI Logo" className="h-12 w-auto object-contain rounded-full border-2 border-primary" />
             <div className="hidden sm:block flex-col">
               <span className="font-serif font-bold text-primary tracking-wide text-lg block leading-tight">KUI</span>
               <span className="text-xs text-muted-foreground uppercase tracking-widest font-medium">KUSSALA Institute</span>
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link 
                 key={link.href} 
@@ -40,13 +42,22 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <a
+              href="https://lms.kussalainstitute.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-primary text-primary-foreground border border-primary/20 px-4 py-2 rounded-md font-semibold text-xs transition-all hover:bg-primary/90 shadow-sm"
+            >
+              Learning Portal
+            </a>
             <Link 
               href="/donate"
-              className="bg-secondary text-secondary-foreground px-6 py-2 rounded-md font-semibold text-sm transition-all hover:bg-secondary/90 hover:scale-105 active:scale-95 shadow-sm"
+              className="bg-secondary text-secondary-foreground px-5 py-2 rounded-md font-semibold text-xs transition-all hover:bg-secondary/90 hover:scale-105 active:scale-95 shadow-sm"
             >
               Donate
             </Link>
           </nav>
+
 
           <div className="md:hidden flex items-center">
             <button 

@@ -15,7 +15,7 @@ const governance = [
   {
     title: "Board of Trustees",
     responsibility: "Strategic oversight, policy approval, and financial accountability.",
-    detail: "The Board provides the highest level of governance, ensuring KISLP operates with integrity and in line with its founding mandate.",
+    detail: "The Board provides the highest level of governance, ensuring KUI operates with integrity and in line with its founding mandate.",
   },
   {
     title: "Executive Director",
@@ -25,7 +25,7 @@ const governance = [
   {
     title: "Advisory Council",
     responsibility: "Expert guidance from scholars, practitioners, and civic leaders.",
-    detail: "The Advisory Council brings together diverse expertise to inform KISLP's research, policy positions, and strategic direction.",
+    detail: "The Advisory Council brings together diverse expertise to inform KUI's research, policy positions, and strategic direction.",
   },
 ];
 
@@ -54,7 +54,7 @@ export default function About() {
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl md:text-6xl font-serif font-bold text-white mb-6"
           >
-            About KISLP
+            About KUI
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
             className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto font-light"
@@ -75,7 +75,7 @@ export default function About() {
                 Recognizing that fragile and post-conflict societies require ethical leadership, strong institutions, and sustainable peace frameworks; Affirming that development without integrity, governance without accountability, and leadership without strategic foresight cannot secure justice or stability.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-5">
-                We hereby establish KISLP as an <strong className="text-foreground">independent, non-partisan, research-driven, and action-oriented</strong> institute dedicated to forming the leaders Africa and the world urgently need.
+                We hereby establish KUI as an <strong className="text-foreground">independent, non-partisan, research-driven, and action-oriented</strong> institute dedicated to forming the leaders Africa and the world urgently need.
               </p>
               <blockquote className="border-l-4 border-secondary pl-6 py-2 italic text-primary font-medium text-lg">
                 "Strategic Leadership is the foundation; Sustainable Peace is the harvest."
@@ -85,7 +85,7 @@ export default function About() {
             <motion.div {...fadeUp} transition={{ duration: 0.6, delay: 0.15 }} className="space-y-5">
               <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-1">Articles of Operation</p>
               {[
-                { label: "Status", text: "KISLP is a non-profit, non-partisan research and policy institute with full legal personality." },
+                { label: "Status", text: "KUI is a non-profit, non-partisan research and policy institute with full legal personality." },
                 { label: "Vision", text: "To be a leading African institute shaping ethical leaders and advancing strategic thinking for just, stable, and flourishing societies." },
                 { label: "Mission", text: "To form visionary leaders, conduct independent research, provide strategic conflict solutions, and equip institutions with policy-relevant knowledge." },
                 { label: "Core Values", text: "Integrity, Strategic Excellence, Peace & Reconciliation, Human Dignity, Accountability, Collaboration, and Service Leadership." },
@@ -272,7 +272,7 @@ export default function About() {
             <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Section I</p>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary mb-4">Governance Structure</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-6" />
-            <p className="text-muted-foreground max-w-xl mx-auto">Three bodies working in concert to ensure KISLP operates with integrity, accountability, and strategic purpose.</p>
+            <p className="text-muted-foreground max-w-xl mx-auto">Three bodies working in concert to ensure KUI operates with integrity, accountability, and strategic purpose.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {governance.map((body, i) => (

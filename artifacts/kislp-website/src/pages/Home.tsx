@@ -1,10 +1,15 @@
 import React from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowRight, Users, Heart, Zap, BookOpen, Download, FileDown, Quote } from "lucide-react";
+import { ArrowRight, Users, Heart, Zap, BookOpen, Download, FileDown, Quote, Scale } from "lucide-react";
 import logoPath from "/kislp-logo.jpeg";
 
 const focusAreas = [
+  {
+    icon: Scale,
+    title: "Ethical Governance & Accountability",
+    desc: "Strengthening transparent institutions, integrity in public life, and accountable leadership as the bedrock of sustainable peace and inclusive development.",
+  },
   {
     icon: Users,
     title: "Youth Leadership & Civic Engagement",
@@ -44,7 +49,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="flex justify-center mb-8"
           >
-            <img src={logoPath} alt="KISLP Logo" className="h-32 md:h-48 w-auto rounded-full shadow-2xl border-4 border-secondary/50" />
+            <img src={logoPath} alt="KUI Logo" className="h-32 md:h-48 w-auto rounded-full shadow-2xl border-4 border-secondary/50" />
           </motion.div>
 
           <motion.p
@@ -106,7 +111,7 @@ export default function Home() {
             {[
               { value: "100+", label: "Leaders — Year 1 Target", sub: "Ethical Leadership Academy" },
               { value: "300+", label: "Participants by 2028", sub: "Regional Consolidation Phase" },
-              { value: "3", label: "Focus Regions", sub: "South Sudan · DRC · East Africa" },
+              { value: "4", label: "Focus Regions", sub: "South Sudan · DRC · East Africa · Central Africa" },
               { value: "2029", label: "African Leadership & Peace Index", sub: "Premier Regional Think Tank" },
             ].map((stat, i) => (
               <motion.div
@@ -134,11 +139,11 @@ export default function Home() {
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-primary mb-4">Our Focus Areas</h2>
             <div className="w-24 h-1 bg-secondary mx-auto mb-6" />
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              KISLP addresses root causes of fragility through four interconnected pillars of action.
+              KUI addresses root causes of fragility through five interconnected pillars of action, led by ethical governance and accountability.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {focusAreas.map((item, idx) => (
               <motion.div
                 key={idx}
@@ -182,7 +187,7 @@ export default function Home() {
       <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Explore KISLP</p>
+            <p className="text-secondary uppercase tracking-widest text-sm font-semibold mb-3">Explore KUI</p>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-4">What We Cover</h2>
             <div className="w-20 h-1 bg-secondary mx-auto" />
           </div>
@@ -192,7 +197,7 @@ export default function Home() {
               { num: "02", title: "Governance Structure", desc: "Board of Trustees, Executive Director, and Advisory Council roles.", href: "/about" },
               { num: "03", title: "Strategic Plan 2026–2029", desc: "Four-phase roadmap from Institutional Establishment to Policy Influence.", href: "/programs" },
               { num: "04", title: "Flagship Donor Proposal", desc: "SLPI-FS project with $3.1M budget summary across five categories.", href: "/donate" },
-              { num: "05", title: "Regional Focus", desc: "Contextual adaptation for South Sudan, DRC, and East Africa.", href: "/impact" },
+              { num: "05", title: "Regional Focus", desc: "Contextual adaptation for South Sudan, DRC, East Africa, and the Central African Region.", href: "/impact" },
               { num: "06", title: "Call to Partnership", desc: "Technical, financial, and strategic alliance opportunities.", href: "/contact" },
             ].map((item, i) => (
               <motion.div
@@ -228,9 +233,9 @@ export default function Home() {
             </div>
             <div className="flex-1 text-center md:text-left">
               <p className="text-secondary uppercase tracking-widest text-xs font-semibold mb-2">Official Document</p>
-              <h3 className="text-2xl md:text-3xl font-serif font-bold text-primary mb-2">KISLP Project Proposal Presentation</h3>
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-primary mb-2">KUI Project Proposal Presentation</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Download the full KISLP proposal — including the Founding Charter, Strategic Plan 2026–2029, SLPI-FS Flagship Donor Proposal, and Regional Focus for South Sudan, DRC, and East Africa.
+                Download the full KUI proposal — including the Founding Charter, Strategic Plan 2026–2029, SLPI-FS Flagship Donor Proposal, and Regional Focus for South Sudan, DRC, East Africa, and the Central African Region.
               </p>
             </div>
             <div className="flex-shrink-0">
