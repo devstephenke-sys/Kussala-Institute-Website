@@ -89,6 +89,10 @@ export const api = {
       method: "PUT",
       body: JSON.stringify(data),
     }),
+  deleteNews: (id: string) =>
+    request<any>(`/admin/news/${id}`, {
+      method: "DELETE",
+    }),
 
   // Impact
   getAdminImpact: (page = 1, status = "") =>
@@ -97,6 +101,15 @@ export const api = {
     request<any>("/admin/impact", {
       method: "POST",
       body: JSON.stringify(data),
+    }),
+  updateImpact: (id: string, data: any) =>
+    request<any>(`/admin/impact/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+  deleteImpact: (id: string) =>
+    request<any>(`/admin/impact/${id}`, {
+      method: "DELETE",
     }),
 
   // Media

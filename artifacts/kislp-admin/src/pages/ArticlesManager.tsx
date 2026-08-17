@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Plus, Edit2, Trash2, CheckCircle2, Clock, Eye, AlertCircle } from "lucide-react";
+import { Plus, Edit2, Trash2, ArchiveIcon, Globe } from "lucide-react";
 import { api } from "../services/api";
 
 interface User {
   role: string;
 }
+
+const STATUS_BADGE: Record<string, string> = {
+  published: "bg-green-100 text-green-800 border border-green-200",
+  draft: "bg-gray-100 text-gray-600",
+  submitted: "bg-amber-100 text-amber-800",
+  in_review: "bg-blue-100 text-blue-800",
+  approved: "bg-indigo-100 text-indigo-800",
+  archived: "bg-rose-100 text-rose-700",
+};
 
 export default function ArticlesManager({ user }: { user: User }) {
   const [articles, setArticles] = useState<any[]>([]);
@@ -12,7 +21,7 @@ export default function ArticlesManager({ user }: { user: User }) {
   const [showModal, setShowModal] = useState(false);
   const [editingArticle, setEditingArticle] = useState<any>(null);
 
-  // Form State
+  // Form state
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
@@ -22,9 +31,13 @@ export default function ArticlesManager({ user }: { user: User }) {
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
 
+  const isAdmin = user?.role === "ADMIN" || user?.role === "SUPER_ADMIN";
+  const isEditor = user?.role === "EDITOR" || isAdmin;
+
   const fetchArticles = () => {
     setLoading(true);
-    api.getAdminArticles()
+    api
+      .getAdminArticles()
       .then((res) => setArticles(res.items || []))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
@@ -62,16 +75,7 @@ export default function ArticlesManager({ user }: { user: User }) {
     e.preventDefault();
     setError("");
     setSaving(true);
-
-    const payload = {
-      title,
-      excerpt,
-      content,
-      featured_image: featuredImage,
-      tags,
-      status,
-    };
-
+    const payload = { title, excerpt, content, featured_image: featuredImage, tags, status };
     try {
       if (editingArticle) {
         await api.updateArticle(editingArticle.id, payload);
@@ -87,8 +91,8 @@ export default function ArticlesManager({ user }: { user: User }) {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this article?")) return;
+  const handleDelete = async (id: string, articleTitle: string) => {
+    if (!window.confirm(`Delete "${articleTitle}"?\n\nThis is permanent and cannot be undone.`)) return;
     try {
       await api.deleteArticle(id);
       fetchArticles();
@@ -97,14 +101,35 @@ export default function ArticlesManager({ user }: { user: User }) {
     }
   };
 
+  const handleUnpublish = async (article: any) => {
+    if (!window.confirm(`Unpublish "${article.title}"? It will revert to Draft and disappear from the public website.`)) return;
+    try {
+      await api.updateArticle(article.id, { ...article, status: "draft" });
+      fetchArticles();
+    } catch (err: any) {
+      alert(err.message || "Failed to unpublish article");
+    }
+  };
+
+  const handleArchive = async (article: any) => {
+    if (!window.confirm(`Archive "${article.title}"? It will be hidden from the public website.`)) return;
+    try {
+      await api.updateArticle(article.id, { ...article, status: "archived" });
+      fetchArticles();
+    } catch (err: any) {
+      alert(err.message || "Failed to archive article");
+    }
+  };
+
   return (
     <div className="p-8 space-y-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between border-b border-gray-200 pb-5">
         <div>
           <h1 className="font-serif font-bold text-3xl text-[#002B49]">Articles Management</h1>
-          <p className="text-sm text-gray-500 mt-1">Manage institutional articles, research papers, and editorial approval workflow.</p>
+          <p className="text-sm text-gray-500 mt-1">
+            Manage institutional articles, research papers, and editorial approval workflow.
+          </p>
         </div>
-
         <button
           onClick={openCreateModal}
           className="bg-[#C5A059] text-[#002B49] px-5 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 hover:bg-[#b08c48] transition-all shadow-sm"
@@ -123,7 +148,7 @@ export default function ArticlesManager({ user }: { user: User }) {
                 <th className="px-6 py-3.5">Title</th>
                 <th className="px-6 py-3.5">Status</th>
                 <th className="px-6 py-3.5">Author</th>
-                <th className="px-6 py-3.5">Created Date</th>
+                <th className="px-6 py-3.5">Date</th>
                 <th className="px-6 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
@@ -133,14 +158,14 @@ export default function ArticlesManager({ user }: { user: User }) {
                   <tr key={art.id} className="hover:bg-gray-50/60 transition-colors">
                     <td className="px-6 py-4">
                       <p className="font-semibold text-gray-900 text-base">{art.title}</p>
-                      <p className="text-xs text-gray-500 font-mono mt-0.5">/articles/{art.slug}</p>
+                      <p className="text-xs text-gray-400 font-mono mt-0.5">/articles/{art.slug}</p>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-                        art.status === "published" ? "bg-green-100 text-green-800 border border-green-200" :
-                        art.status === "draft" ? "bg-gray-100 text-gray-700" :
-                        art.status === "submitted" ? "bg-amber-100 text-amber-800" : "bg-blue-100 text-blue-800"
-                      }`}>
+                      <span
+                        className={`px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
+                          STATUS_BADGE[art.status] || "bg-gray-100 text-gray-600"
+                        }`}
+                      >
                         {art.status}
                       </span>
                     </td>
@@ -150,23 +175,50 @@ export default function ArticlesManager({ user }: { user: User }) {
                     <td className="px-6 py-4 text-xs text-gray-500">
                       {new Date(art.created_at).toLocaleDateString()}
                     </td>
-                    <td className="px-6 py-4 text-right space-x-2">
-                      <button
-                        onClick={() => openEditModal(art)}
-                        className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"
-                        title="Edit Article"
-                      >
-                        <Edit2 size={16} />
-                      </button>
-                      {user?.role !== "CONTRIBUTOR" && (
+                    <td className="px-6 py-4">
+                      <div className="flex items-center justify-end gap-1">
+                        {/* Edit — always available */}
                         <button
-                          onClick={() => handleDelete(art.id)}
-                          className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors"
-                          title="Delete Article"
+                          onClick={() => openEditModal(art)}
+                          title="Edit Article"
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
                         >
-                          <Trash2 size={16} />
+                          <Edit2 size={13} /> Edit
                         </button>
-                      )}
+
+                        {/* Unpublish — only visible for published articles, only editors/admins */}
+                        {art.status === "published" && isEditor && (
+                          <button
+                            onClick={() => handleUnpublish(art)}
+                            title="Revert to Draft"
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 rounded-lg transition-colors"
+                          >
+                            <Globe size={13} /> Unpublish
+                          </button>
+                        )}
+
+                        {/* Archive — for published/approved, only editors/admins */}
+                        {["published", "approved", "in_review"].includes(art.status) && isEditor && (
+                          <button
+                            onClick={() => handleArchive(art)}
+                            title="Archive Article"
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 rounded-lg transition-colors"
+                          >
+                            <ArchiveIcon size={13} /> Archive
+                          </button>
+                        )}
+
+                        {/* Delete — only admins can permanently delete */}
+                        {isAdmin && (
+                          <button
+                            onClick={() => handleDelete(art.id, art.title)}
+                            title="Permanently Delete"
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+                          >
+                            <Trash2 size={13} /> Delete
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -187,10 +239,20 @@ export default function ArticlesManager({ user }: { user: User }) {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-8 space-y-6">
             <div className="flex items-center justify-between border-b pb-4">
-              <h3 className="font-serif font-bold text-xl text-[#002B49]">
-                {editingArticle ? "Edit Article" : "Create New Article"}
-              </h3>
-              <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600 text-xl font-bold">
+              <div>
+                <h3 className="font-serif font-bold text-xl text-[#002B49]">
+                  {editingArticle ? "Edit Article" : "Create New Article"}
+                </h3>
+                {editingArticle?.status === "published" && (
+                  <p className="text-xs text-green-700 font-semibold mt-1">
+                    ✅ This article is LIVE on the public website. Changes will go live immediately on save.
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={() => setShowModal(false)}
+                className="text-gray-400 hover:text-gray-600 text-xl font-bold"
+              >
                 ✕
               </button>
             </div>
@@ -199,7 +261,9 @@ export default function ArticlesManager({ user }: { user: User }) {
 
             <form onSubmit={handleSave} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">Article Title *</label>
+                <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
+                  Article Title *
+                </label>
                 <input
                   type="text"
                   required
@@ -211,7 +275,9 @@ export default function ArticlesManager({ user }: { user: User }) {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">Excerpt / Summary</label>
+                <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
+                  Excerpt / Summary
+                </label>
                 <textarea
                   rows={2}
                   value={excerpt}
@@ -222,7 +288,9 @@ export default function ArticlesManager({ user }: { user: User }) {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">Main Body Content *</label>
+                <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
+                  Main Body Content *
+                </label>
                 <textarea
                   rows={8}
                   required
@@ -235,18 +303,22 @@ export default function ArticlesManager({ user }: { user: User }) {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">Featured Image URL</label>
+                  <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
+                    Featured Image URL
+                  </label>
                   <input
                     type="text"
                     value={featuredImage}
                     onChange={(e) => setFeaturedImage(e.target.value)}
-                    placeholder="/gallery/peace-conference-nairobi.jpg or upload URL"
+                    placeholder="/gallery/peace-conference-nairobi.jpg"
                     className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#C5A059] outline-none text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">Tags (Comma-separated)</label>
+                  <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
+                    Tags (Comma-separated)
+                  </label>
                   <input
                     type="text"
                     value={tags}
@@ -258,7 +330,9 @@ export default function ArticlesManager({ user }: { user: User }) {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">Publishing Workflow Status *</label>
+                <label className="block text-xs font-semibold uppercase text-gray-700 mb-1">
+                  Publishing Workflow Status *
+                </label>
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
@@ -266,12 +340,12 @@ export default function ArticlesManager({ user }: { user: User }) {
                 >
                   <option value="draft">Draft (Private)</option>
                   <option value="submitted">Submit for Review</option>
-                  {user?.role !== "CONTRIBUTOR" && (
+                  {isEditor && (
                     <>
                       <option value="in_review">In Review (Editor)</option>
                       <option value="approved">Approved</option>
-                      <option value="published">Published (Public)</option>
-                      <option value="archived">Archived</option>
+                      <option value="published">Published (Live on Website)</option>
+                      <option value="archived">Archived (Hidden)</option>
                     </>
                   )}
                 </select>
@@ -295,7 +369,7 @@ export default function ArticlesManager({ user }: { user: User }) {
                   disabled={saving}
                   className="px-6 py-2 bg-[#002B49] text-white rounded-lg text-sm font-bold hover:bg-[#001e33] disabled:opacity-50"
                 >
-                  {saving ? "Saving..." : "Save Article"}
+                  {saving ? "Saving..." : editingArticle ? "Update Article" : "Create Article"}
                 </button>
               </div>
             </form>
