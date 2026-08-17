@@ -36,6 +36,15 @@ app.include_router(auth.router, prefix=settings.API_V1_STR)
 app.include_router(admin.router, prefix=settings.API_V1_STR)
 app.include_router(public.router, prefix=settings.API_V1_STR)
 
+@app.get("/")
+def root():
+    return {
+        "status": "online",
+        "service": settings.PROJECT_NAME,
+        "version": settings.VERSION,
+        "docs_url": f"{settings.API_V1_STR}/docs"
+    }
+
 @app.get("/health")
 def health_check():
     return {
