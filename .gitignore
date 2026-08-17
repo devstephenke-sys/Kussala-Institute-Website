@@ -8,6 +8,14 @@ out-tsc
 .expo
 .expo-shared
 
+# Python & SQLite
+__pycache__/
+*.pyc
+*.db
+.env
+venv/
+.venv/
+
 # dependencies
 node_modules
 
