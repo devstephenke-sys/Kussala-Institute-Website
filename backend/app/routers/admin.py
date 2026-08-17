@@ -73,19 +73,22 @@ def get_dashboard_stats(
 def get_admin_articles(
     page: int = Query(1, ge=1),
     page_size: int = Query(10, ge=1, le=50),
-    status: Optional[ContentStatus] = None,
-    search: Optional[str] = None,
+    status: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
     query = db.query(Article)
 
-    # Contributors can only see their own articles or all depending on view, but let's restrict if requested
     if current_user.role == UserRole.CONTRIBUTOR:
         query = query.filter(Article.author_id == current_user.id)
 
-    if status:
-        query = query.filter(Article.status == status)
+    if status and status.strip():
+        try:
+            enum_status = ContentStatus(status.strip())
+            query = query.filter(Article.status == enum_status)
+        except ValueError:
+            pass
 
     if search:
         search_pattern = f"%{search}%"
@@ -199,13 +202,17 @@ def delete_article(
 def get_admin_news(
     page: int = Query(1, ge=1),
     page_size: int = Query(10, ge=1, le=50),
-    status: Optional[ContentStatus] = None,
+    status: Optional[str] = Query(None),
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
     query = db.query(News)
-    if status:
-        query = query.filter(News.status == status)
+    if status and status.strip():
+        try:
+            enum_status = ContentStatus(status.strip())
+            query = query.filter(News.status == enum_status)
+        except ValueError:
+            pass
     total = query.count()
     items = query.order_by(News.created_at.desc()).offset((page - 1) * page_size).limit(page_size).all()
     return PaginatedResponse(
@@ -295,13 +302,17 @@ def delete_news(
 def get_admin_impact(
     page: int = Query(1, ge=1),
     page_size: int = Query(10, ge=1, le=50),
-    status: Optional[ContentStatus] = None,
+    status: Optional[str] = Query(None),
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
     query = db.query(ImpactStory)
-    if status:
-        query = query.filter(ImpactStory.status == status)
+    if status and status.strip():
+        try:
+            enum_status = ContentStatus(status.strip())
+            query = query.filter(ImpactStory.status == enum_status)
+        except ValueError:
+            pass
     total = query.count()
     items = query.order_by(ImpactStory.created_at.desc()).offset((page - 1) * page_size).limit(page_size).all()
     return PaginatedResponse(

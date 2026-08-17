@@ -59,8 +59,12 @@ export const api = {
   getStats: () => request<any>("/admin/dashboard/stats"),
 
   // Articles
-  getAdminArticles: (page = 1, status = "", search = "") =>
-    request<any>(`/admin/articles?page=${page}&status=${status}&search=${search}`),
+  getAdminArticles: (page = 1, status = "", search = "") => {
+    const params = new URLSearchParams({ page: page.toString() });
+    if (status) params.append("status", status);
+    if (search) params.append("search", search);
+    return request<any>(`/admin/articles?${params.toString()}`);
+  },
   createArticle: (data: any) =>
     request<any>("/admin/articles", {
       method: "POST",
@@ -77,8 +81,11 @@ export const api = {
     }),
 
   // News
-  getAdminNews: (page = 1, status = "") =>
-    request<any>(`/admin/news?page=${page}&status=${status}`),
+  getAdminNews: (page = 1, status = "") => {
+    const params = new URLSearchParams({ page: page.toString() });
+    if (status) params.append("status", status);
+    return request<any>(`/admin/news?${params.toString()}`);
+  },
   createNews: (data: any) =>
     request<any>("/admin/news", {
       method: "POST",
@@ -95,8 +102,11 @@ export const api = {
     }),
 
   // Impact
-  getAdminImpact: (page = 1, status = "") =>
-    request<any>(`/admin/impact?page=${page}&status=${status}`),
+  getAdminImpact: (page = 1, status = "") => {
+    const params = new URLSearchParams({ page: page.toString() });
+    if (status) params.append("status", status);
+    return request<any>(`/admin/impact?${params.toString()}`);
+  },
   createImpact: (data: any) =>
     request<any>("/admin/impact", {
       method: "POST",
