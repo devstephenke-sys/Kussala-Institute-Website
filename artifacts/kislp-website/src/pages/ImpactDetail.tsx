@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRoute, Link } from "wouter";
 import { ArrowLeft, MapPin, Users, Calendar } from "lucide-react";
-import { fetchImpactBySlug } from "../services/api";
+import { fetchImpactBySlug, formatImageUrl } from "../services/api";
 
 export default function ImpactDetail() {
   const [, params] = useRoute("/impact/:slug");
@@ -60,7 +60,7 @@ export default function ImpactDetail() {
 
         {story.featured_image && (
           <div className="rounded-2xl overflow-hidden mb-10 shadow-lg max-h-[450px]">
-            <img src={story.featured_image} alt={story.title} className="w-full h-full object-cover" />
+            <img src={formatImageUrl(story.featured_image)} alt={story.title} className="w-full h-full object-cover" />
           </div>
         )}
 

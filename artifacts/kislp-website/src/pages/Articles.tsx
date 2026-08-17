@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Search, Calendar, User, ArrowRight, BookOpen, Tag } from "lucide-react";
-import { fetchPublishedArticles } from "../services/api";
+import { fetchPublishedArticles, formatImageUrl } from "../services/api";
 
 const staticFallbackArticles = [
   {
@@ -100,7 +100,7 @@ export default function Articles() {
                 {article.featured_image && (
                   <div className="h-56 overflow-hidden relative bg-muted">
                     <img
-                      src={article.featured_image}
+                      src={formatImageUrl(article.featured_image)}
                       alt={article.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />

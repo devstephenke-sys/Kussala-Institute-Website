@@ -1,4 +1,12 @@
 const API_BASE = import.meta.env.VITE_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+const BACKEND_BASE = API_BASE.replace(/\/api\/v1\/?$/, "");
+
+export function formatImageUrl(url?: string): string {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  if (url.startsWith("/")) return `${BACKEND_BASE}${url}`;
+  return `${BACKEND_BASE}/${url}`;
+}
 
 export async function fetchPublishedArticles(page = 1, search = "", categorySlug = "") {
   try {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRoute, Link } from "wouter";
 import { ArrowLeft, Calendar } from "lucide-react";
-import { fetchNewsBySlug } from "../services/api";
+import { fetchNewsBySlug, formatImageUrl } from "../services/api";
 
 export default function NewsDetail() {
   const [, params] = useRoute("/news/:slug");
@@ -56,7 +56,7 @@ export default function NewsDetail() {
 
         {newsItem.featured_image && (
           <div className="rounded-2xl overflow-hidden mb-10 shadow-lg max-h-[450px]">
-            <img src={newsItem.featured_image} alt={newsItem.title} className="w-full h-full object-cover" />
+            <img src={formatImageUrl(newsItem.featured_image)} alt={newsItem.title} className="w-full h-full object-cover" />
           </div>
         )}
 

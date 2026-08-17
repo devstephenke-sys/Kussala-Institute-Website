@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import {
   Bold, Italic, Underline, Strikethrough,
   Heading1, Heading2, Heading3,
@@ -35,19 +35,40 @@ const ToolbarBtn = ({
 
 const Divider = () => <div className="w-px h-5 bg-gray-300 mx-1" />;
 
-export default function RichTextEditor({ value, onChange, placeholder = "Write your content here...", minHeight = "220px" }: RichTextEditorProps) {
+export default function RichTextEditor({
+  value,
+  onChange,
+  placeholder = "Write your content here...",
+  minHeight = "220px"
+}: RichTextEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
+  const isInternalChange = useRef(false);
+
+  // Sync value to editor DOM safely without disrupting cursor position while typing
+  useEffect(() => {
+    if (editorRef.current) {
+      if (isInternalChange.current) {
+        isInternalChange.current = false;
+        return;
+      }
+      if (editorRef.current.innerHTML !== value) {
+        editorRef.current.innerHTML = value || "";
+      }
+    }
+  }, [value]);
 
   const exec = useCallback((command: string, val?: string) => {
     document.execCommand(command, false, val);
     editorRef.current?.focus();
     if (editorRef.current) {
+      isInternalChange.current = true;
       onChange(editorRef.current.innerHTML);
     }
   }, [onChange]);
 
   const handleInput = useCallback(() => {
     if (editorRef.current) {
+      isInternalChange.current = true;
       onChange(editorRef.current.innerHTML);
     }
   }, [onChange]);
@@ -62,7 +83,7 @@ export default function RichTextEditor({ value, onChange, placeholder = "Write y
   }, [exec]);
 
   return (
-    <div className="border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#C5A059]">
+    <div className="border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#C5A059] bg-white">
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-0.5 px-2 py-1.5 bg-gray-50 border-b border-gray-200">
         {/* Undo/Redo */}
@@ -114,7 +135,6 @@ export default function RichTextEditor({ value, onChange, placeholder = "Write y
         contentEditable
         suppressContentEditableWarning
         onInput={handleInput}
-        dangerouslySetInnerHTML={{ __html: value }}
         data-placeholder={placeholder}
         style={{ minHeight }}
         className="

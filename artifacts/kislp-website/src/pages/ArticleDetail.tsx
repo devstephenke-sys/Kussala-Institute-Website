@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRoute, Link } from "wouter";
 import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, User, Tag, Share2 } from "lucide-react";
-import { fetchArticleBySlug } from "../services/api";
+import { fetchArticleBySlug, formatImageUrl } from "../services/api";
 
 export default function ArticleDetail() {
   const [, params] = useRoute("/articles/:slug");
@@ -73,7 +73,7 @@ export default function ArticleDetail() {
 
         {article.featured_image && (
           <div className="rounded-2xl overflow-hidden mb-12 shadow-lg max-h-[450px]">
-            <img src={article.featured_image} alt={article.title} className="w-full h-full object-cover" />
+            <img src={formatImageUrl(article.featured_image)} alt={article.title} className="w-full h-full object-cover" />
           </div>
         )}
 

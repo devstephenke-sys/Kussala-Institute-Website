@@ -8,6 +8,16 @@ interface ImageUploaderProps {
   label?: string;
 }
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000/api/v1";
+const BACKEND_BASE = API_BASE.replace(/\/api\/v1\/?$/, "");
+
+function formatPreviewUrl(url: string): string {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  if (url.startsWith("/")) return `${BACKEND_BASE}${url}`;
+  return `${BACKEND_BASE}/${url}`;
+}
+
 export default function ImageUploader({ value, onChange, label = "Featured Image" }: ImageUploaderProps) {
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
@@ -104,7 +114,7 @@ export default function ImageUploader({ value, onChange, label = "Featured Image
       {value ? (
         <div className="relative group rounded-lg border border-gray-300 overflow-hidden bg-gray-50 p-2 flex items-center gap-4">
           <img
-            src={value}
+            src={formatPreviewUrl(value)}
             alt="Preview"
             className="w-16 h-16 object-cover rounded border border-gray-200"
             onError={(e) => {

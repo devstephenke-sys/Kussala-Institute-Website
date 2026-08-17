@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Newspaper, Calendar, ArrowRight } from "lucide-react";
-import { fetchPublishedNews } from "../services/api";
+import { fetchPublishedNews, formatImageUrl } from "../services/api";
 
 const staticFallbackNews = [
   {
@@ -65,7 +65,7 @@ export default function NewsList() {
               >
                 {item.featured_image && (
                   <div className="h-48 overflow-hidden bg-muted">
-                    <img src={item.featured_image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={formatImageUrl(item.featured_image)} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                 )}
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
