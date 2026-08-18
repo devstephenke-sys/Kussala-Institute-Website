@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+const API_BASE = import.meta.env.VITE_PUBLIC_API_URL || "https://kussala-institute-website.onrender.com/api/v1";
 const BACKEND_BASE = API_BASE.replace(/\/api\/v1\/?$/, "");
 
 export function formatImageUrl(url?: string): string {
