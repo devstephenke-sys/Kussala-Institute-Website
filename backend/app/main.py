@@ -7,8 +7,14 @@ from app.config import settings
 from app.database import engine, Base
 from app.routers import auth, public, admin
 
-# Create database tables automatically on startup if using SQLite/Development
+from app.seed import seed_database
+
+# Create database tables automatically on startup and seed initial admin data if empty
 Base.metadata.create_all(bind=engine)
+try:
+    seed_database()
+except Exception as e:
+    print(f"Auto-seed notification: {e}")
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
