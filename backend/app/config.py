@@ -24,6 +24,8 @@ class Settings(BaseSettings):
         "https://kussalainstitute.org",
         "https://admin.kussalainstitute.org",
         "https://lms.kussalainstitute.org",
+        "https://kussala-institute-website-kislp-adm.vercel.app",
+        "*"
     ]
     
     # Media Storage
